@@ -101,14 +101,14 @@ export function CertificationsSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all duration-300 group"
+                  className="bg-white dark:bg-slate-800 rounded-xl p-4 sm:p-6 border border-gray-200 dark:border-slate-700 shadow-md hover:bg-teal-50 dark:hover:bg-teal-900/70 transition-all duration-300 group"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <h4 className="font-bold text-lg sm:text-xl text-slate-900 dark:text-slate-100 mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         {cert.title}
                       </h4>
-                      <p className="text-teal-600 dark:text-teal-400 font-medium mb-2">
+                      <p className="text-teal-600 dark:text-teal-400 font-medium mb-2 text-sm sm:text-base">
                         {cert.issuer}
                       </p>
                       <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
@@ -153,19 +153,19 @@ export function CertificationsSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-gradient-to-br from-teal/5 to-slate-900/5 rounded-xl p-4 sm:p-6 border border-teal/20 dark:border-teal-800 shadow-lg"
+                  className="bg-white dark:bg-teal-900/50 rounded-xl p-4 sm:p-6 border border-teal-200 dark:border-teal-800 shadow-md hover:bg-teal-50 dark:hover:bg-teal-900/70 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <h4 className="font-bold text-lg sm:text-xl text-slate-900 dark:text-slate-100">
                       {edu.title}
                     </h4>
                     {edu.status && (
-                      <span className="bg-teal-600 dark:bg-teal-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      <span className="bg-teal-600 dark:bg-teal-500 text-white dark:text-slate-100 px-3 py-1 rounded-full text-sm font-medium">
                         {edu.status}
                       </span>
                     )}
                   </div>
-                  <p className="text-teal-600 dark:text-teal-400 font-medium mb-2">
+                  <p className="text-teal-600 dark:text-teal-400 font-medium mb-2 text-sm sm:text-base">
                     {edu.issuer}
                   </p>
                   <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
@@ -181,12 +181,12 @@ export function CertificationsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               viewport={{ once: true }}
-              className="mt-6 sm:mt-8 bg-white rounded-xl p-4 sm:p-6 border border-gray-200 dark:border-slate-700 shadow-lg"
+              className="mt-6 sm:mt-8 bg-white dark:bg-slate-800 rounded-xl p-4 sm:p-6 border border-gray-200 dark:border-slate-700 shadow-md"
             >
               <h4 className="font-bold text-lg sm:text-xl text-slate-900 dark:text-slate-100 mb-4">
                 Academic Highlights
               </h4>
-              <ul className="space-y-2 text-slate-600 dark:text-slate-300">
+              <ul className="space-y-2 text-slate-600 dark:text-slate-300 text-sm sm:text-base">
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-teal-600 dark:bg-teal-400 rounded-full"></div>
                   Strong foundation in software engineering principles
