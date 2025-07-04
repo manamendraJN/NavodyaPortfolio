@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Canvas } from "@react-three/fiber";
 import { Stars, OrbitControls } from "@react-three/drei";
 import { useRef, useEffect, useState } from "react";
-import profileImg from "@/client/components/portfolio/dp/IMG_20250627_172506.jpg";
+import dpImage from "@/components/portfolio/dp/IMG_20250627_172506.jpg";
 
 export function HeroSection() {
   const scrollToSection = (id: string) => {
@@ -122,7 +122,7 @@ export function HeroSection() {
             className="mb-6 sm:mb-10"
           >
             <img
-              src={profileImg}
+              src={dpImage}
               alt="Navodya Manamendra's profile picture"
               className="w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-[hsl(210,18%,82%)] shadow-md object-cover focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,32%)] focus:ring-opacity-50"
               role="img"
