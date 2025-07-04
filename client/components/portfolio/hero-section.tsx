@@ -26,20 +26,21 @@ export function HeroSection() {
       <div className="absolute inset-0 z-0" aria-hidden="true">
         <Canvas
           ref={canvasRef}
-          camera={{ position: [0, 0, 10], fov: 75 }}
+          camera={{ position: [0, 0, 10], fov: 100 }}
           style={{ background: "radial-gradient(circle, hsl(213,50%,16%) 0%, hsl(213,50%,10%) 100%)" }}
         >
           <ambientLight intensity={0.4} />
           <pointLight position={[10, 10, 10]} intensity={0.8} />
           <Stars
-            radius={180}
-            depth={60}
-            count={7000}
-            factor={5}
-            saturation={0.1}
-            fade
-            speed={0.1}
-          />
+  radius={180}
+  depth={60}
+  count={7000}
+  factor={2.5}
+  saturation={0.1}
+  speed={0.05} // slower twinkle speed
+  fade={false} // ensures stars never disappear completely
+/>
+
           <OrbitControls
             enableZoom={false}
             enablePan={false}
@@ -48,28 +49,6 @@ export function HeroSection() {
             autoRotateSpeed={0.2}
           />
         </Canvas>
-      </div>
-
-      {/* Subtle Background Geometric Patterns */}
-      <div className="absolute inset-0 opacity-10" aria-hidden="true">
-        <motion.div
-          className="absolute top-20 left-20 w-28 h-28 border border-[hsl(210,18%,82%)] rotate-45"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.8 }}
-          transition={{ duration: 1.5, delay: 0.8 }}
-        />
-        <motion.div
-          className="absolute bottom-40 right-20 w-20 h-20 border border-[hsl(210,18%,82%)] rounded-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.8 }}
-          transition={{ duration: 1.5, delay: 1.2 }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-10 w-14 h-14 bg-[hsl(172,85%,32%)]/10 rotate-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.8 }}
-          transition={{ duration: 1.5, delay: 1.6 }}
-        />
       </div>
 
       <div className="container relative z-10 px-6">
