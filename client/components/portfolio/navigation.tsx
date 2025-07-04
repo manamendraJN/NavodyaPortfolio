@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, Variants, useReducedMotion } from "framer-motion";
 import { Menu, X, Home, User, Layers, Code, CheckSquare, Mail, Settings } from "lucide-react";
 import { ThemeToggle } from "../ui/theme-toggle";
@@ -33,6 +33,9 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
   const shouldReduceMotion = useReducedMotion();
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  const settingsRef = useRef<HTMLDivElement | null>(null);
+  const settingsButtonRef = useRef<HTMLButtonElement | null>(null);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -62,8 +65,38 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close settings menu on scroll or clicking outside
+  useEffect(() => {
+    const handleScrollClose = () => {
+      if (isSettingsOpen) {
+        setIsSettingsOpen(false);
+      }
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isSettingsOpen &&
+        settingsRef.current &&
+        settingsButtonRef.current &&
+        !settingsRef.current.contains(event.target as Node) &&
+        !settingsButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsSettingsOpen(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScrollClose);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollClose);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSettingsOpen]);
 
   const scrollToSection = (href: string) => {
     setIsMobileMenuOpen(false);
@@ -150,6 +183,7 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
               ))}
               <div className="relative">
                 <motion.button
+                  ref={settingsButtonRef}
                   onClick={() => setIsSettingsOpen(!isSettingsOpen)}
                   className={`relative group px-4 py-2 rounded-lg font-medium text-sm transition-all before:absolute before:inset-0 before:rounded-lg before:opacity-0 before:transition-opacity before:bg-[hsl(172,85%,35%)]/10 group-hover:before:opacity-100 ${
                     isSettingsOpen
@@ -167,6 +201,7 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
                 <AnimatePresence>
                   {isSettingsOpen && (
                     <motion.div
+                      ref={settingsRef}
                       variants={settingsMenuVariants}
                       initial="initial"
                       animate="animate"
