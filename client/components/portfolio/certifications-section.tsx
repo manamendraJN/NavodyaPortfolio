@@ -11,39 +11,47 @@ interface Certification {
 }
 
 const achievements: Certification[] = [
+    {
+    title: "AI/ML Engineer",
+    issuer: "SLIIT",
+    date: "2024",
+    type: "certification",
+    url: "https://code.sliit.org/certificates/muy9c4mfjv",
+  },
   {
-    title: "SQL (Basic)",
+    title: "Python (Basic)",
+    issuer: "Sololearn",
+    date: "2024",
+    type: "certification",
+    url: "https://www.sololearn.com/certificates/CC-S7UZM0GN",
+  },
+    {
+    title: "JavaScript (Basic)",
     issuer: "HackerRank",
     date: "2023",
     type: "certification",
-    url: "#",
+    url: "https://www.hackerrank.com/certificates/ef62b645d0bd",
   },
-  {
+    {
     title: "React (Basic)",
     issuer: "HackerRank",
     date: "2023",
     type: "certification",
-    url: "#",
+    url: "https://www.hackerrank.com/certificates/206119c6659f",
+  },
+    {
+    title: "SQL (Basic)",
+    issuer: "HackerRank",
+    date: "2023",
+    type: "certification",
+    url: "https://www.hackerrank.com/certificates/12e449396716",
   },
   {
     title: "Java (Basic)",
     issuer: "HackerRank",
     date: "2023",
     type: "certification",
-    url: "#",
-  },
-  {
-    title: "JavaScript (Basic)",
-    issuer: "HackerRank",
-    date: "2023",
-    type: "certification",
-    url: "#",
-  },
-  {
-    title: "AI/ML Engineer",
-    issuer: "SLIIT",
-    date: "2024",
-    type: "certification",
+    url: "https://www.hackerrank.com/certificates/768a9f87f70c",
   },
   {
     title: "BSc (Hons) in Information Technology",
