@@ -56,6 +56,7 @@ const projects: Project[] = [
       "/client/components/portfolio/project-images/project1-img1.png",
       "/client/components/portfolio/project-images/project1-img2.png",
       "/client/components/portfolio/project-images/project1-img3.png",
+      "/client/components/portfolio/project-images/project1-img4.png",
     ],
     status: "Completed",
   },
