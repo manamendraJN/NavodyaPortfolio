@@ -53,9 +53,9 @@ const projects: Project[] = [
     ],
     githubUrl: "https://github.com/manamendraJN/Collab-Hub",
     images: [
-      "/client/components/project-images/project1-img1.png",
-      "/client/components/project-images/project1-img2.png",
-      "/client/components/project-images/project1-img3.png",
+      "/client/components/portfolio/project-images/project1-img1.png",
+      "/client/components/portfolio/project-images/project1-img2.png",
+      "/client/components/portfolio/project-images/project1-img3.png",
     ],
     status: "Completed",
   },
@@ -69,8 +69,8 @@ const projects: Project[] = [
     technologies: ["React", "Spring Boot", "MySQL", "WebRTC", "OAuth 2.0"],
     githubUrl: "https://github.com/manamendraJN/SkillSphere",
     images: [
-      "/client/components/project-images/project2-img1.png",
-      "/client/components/project-images/project2-img2.png",
+      "/client/components/portfolio/project-images/project2-img1.png",
+      "/client/components/portfolio/project-images/project2-img2.png",
     ],
     status: "Completed",
   },
@@ -84,9 +84,9 @@ const projects: Project[] = [
     technologies: ["Java", "Spring Boot", "PostgreSQL", "Angular", "Docker"],
     githubUrl: "https://github.com/Shiranakther/Warehouse_Management_Syatem",
     images: [
-      "/client/components/project-images/project3-img1.png",
-      "/client/components/project-images/project3-img2.png",
-      "/client/components/project-images/project3-img3.png",
+      "/client/components/portfolio/project-images/project3-img1.png",
+      "/client/components/portfolio/project-images/project3-img2.png",
+      "/client/components/portfolio/project-images/project3-img3.png",
     ],
     status: "Completed",
   },
@@ -100,8 +100,8 @@ const projects: Project[] = [
     technologies: ["Kotlin", "SQLite", "Android SDK", "Material Design"],
     githubUrl: "https://github.com/manamendraJN/Notes_App_with_SQLite",
     images: [
-      "/client/components/project-images/project4-img1.jpg",
-      "/client/components/project-images/project4-img2.jpg",
+      "/client/components/portfolio/project-images/project4-img1.jpg",
+      "/client/components/portfolio/project-images/project4-img2.jpg",
     ],
     status: "Completed",
   },
@@ -116,8 +116,7 @@ const projects: Project[] = [
     githubUrl: "https://github.com/manamendraJN/mern-estate",
     images: [
       "https://via.placeholder.com/600x400?text=MERN+Estate+1",
-      "https://via.placeholder.com/600x400?text=MERN+Estate+2",
-      "https://via.placeholder.com/600x400?text=MERN+Estate+3",
+
     ],
     status: "Ongoing",
   },
