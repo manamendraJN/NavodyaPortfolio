@@ -73,7 +73,7 @@ export function CertificationsSection() {
           viewport={{ once: true }}
           className="text-center mb-8 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4 sm:mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-100 mb-4 sm:mb-6">
             Academic & Certifications
           </h2>
           <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
@@ -176,7 +176,6 @@ export function CertificationsSection() {
               ))}
             </div>
 
-            {/* Additional Academic Highlights */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
