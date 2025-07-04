@@ -153,9 +153,6 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-[hsl(172,85%,35%)] to-[hsl(213,50%,16%)] dark:from-[hsl(172,85%,45%)] dark:to-[hsl(213,50%,20%)] rounded-full flex items-center justify-center text-white font-bold text-base shadow-md">
-                NM
-              </div>
               <span className="text-xl font-semibold dark:text-white hidden sm:block">
                 Navodya Manamendra
               </span>
