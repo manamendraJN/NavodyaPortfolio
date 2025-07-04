@@ -4,8 +4,10 @@ import path from "path";
 import { createServer } from "./server";
 import tailwindcss from "@tailwindcss/vite";
 
+const repoName = "NavodyaPortfolio";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  base: `/${repoName}/`,
   server: {
     host: "::",
     port: 8080,
