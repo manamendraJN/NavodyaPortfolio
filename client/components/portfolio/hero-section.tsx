@@ -103,11 +103,12 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
             <Button
-              onClick={() => scrollToSection("projects")}
-              className="bg-[hsl(172,85%,35%)] hover:bg-[hsl(172,85%,30%)] dark:bg-[hsl(172,85%,45%)] dark:hover:bg-[hsl(172,85%,40%)] text-white transition-all duration-300 text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 min-w-[200px] min-h-[48px]"
-              aria-label="Navigate to projects section"
+              className="bg-[hsl(172,85%,35%)] hover:bg-[hsl(172,85%,30%)] text-white text-base font-medium px-6 py-5 rounded-md shadow-sm hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 min-w-[180px]"
+              
             >
-              Explore My Creations 🚀
+            <a href="/client/components/CV/Navodya_Manamendra_CV.pdf" download="NavodyaManamendra_CV.pdf">
+    <button>Download My CV</button>
+</a>
             </Button>
             <Button
               onClick={() => scrollToSection("contact")}
