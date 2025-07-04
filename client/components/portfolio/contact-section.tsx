@@ -7,35 +7,35 @@ export function ContactSection() {
       name: "Email",
       url: "mailto:navodyamanamendra19@gmail.com",
       icon: Mail,
-      color: "hover:text-[hsl(172,85%,32%)]",
+      color: "hover:text-[hsl(172,85%,35%)]",
       description: "Send direct email",
     },
     {
       name: "GitHub",
       url: "https://github.com/manamendraJN",
       icon: Github,
-      color: "hover:text-[hsl(172,85%,32%)]",
+      color: "hover:text-[hsl(172,85%,35%)]",
       description: "View code repositories and contributions",
     },
     {
       name: "LinkedIn",
       url: "https://www.linkedin.com/in/navodya-manamendra-35a309248/",
       icon: Linkedin,
-      color: "hover:text-[hsl(172,85%,32%)]",
+      color: "hover:text-[hsl(172,85%,35%)]",
       description: "Connect on professional network",
     },
     {
       name: "WhatsApp",
       url: "https://wa.me/94764390987",
       icon: Phone,
-      color: "hover:text-[hsl(172,85%,32%)]",
+      color: "hover:text-[hsl(172,85%,35%)]",
       description: "Contact via WhatsApp",
     },
-    {
+        {
       name: "Mobile",
       url: "tel:+94768685811",
       icon: Phone,
-      color: "hover:text-[hsl(172,85%,32%)]",
+      color: "hover:text-[hsl(172,85%,35%)]",
       description: "Call directly",
     },
   ];
@@ -68,7 +68,7 @@ export function ContactSection() {
         </motion.div>
 
         <div className="grid lg:grid-cols-1 gap-12 max-w-6xl mx-auto">
-          {/* Contact Info */}
+          {/* Contact Info - Enhanced accessibility with clickable links */}
           <motion.div
             initial={{ opacity: 0, x: 0 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -109,7 +109,9 @@ export function ContactSection() {
                         ? "Professional LinkedIn Profile"
                         : link.name === "WhatsApp"
                         ? "WhatsApp Chat (+94 76 439 0987)"
-                        : "Call Now (+94 76 868 5811)"}
+                        : link.name === "Mobile"
+                        ? "Call Now (+94 76 868 5811)"
+                        : ""}
                     </motion.a>
                   </div>
                 ))}
@@ -124,8 +126,8 @@ export function ContactSection() {
               viewport={{ once: true }}
               className="bg-white/5 rounded-2xl p-6 border border-white/10"
             >
-              <p className="text-white/80 italic text-center">
-                "The best way to predict the future is to create it."
+              <p className="text-white italic text-center font-medium">
+                " 💡The best way to predict the future is to create it "
               </p>
             </motion.div>
           </motion.div>
