@@ -32,9 +32,9 @@ export function HeroSection() {
           <ambientLight intensity={0.4} />
           <pointLight position={[10, 10, 10]} intensity={0.8} />
           <Stars
-            radius={150}
+            radius={180}
             depth={60}
-            count={8000}
+            count={7000}
             factor={5}
             saturation={0.1}
             fade
