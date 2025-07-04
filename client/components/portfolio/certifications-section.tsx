@@ -121,9 +121,10 @@ export function CertificationsSection() {
                         href={cert.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors p-2 rounded-full hover:bg-teal-100 dark:hover:bg-teal-900/50"
+                        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors p-2 rounded-full hover:bg-teal-100 dark:hover:bg-teal-900/50 focus:ring-2 focus:ring-teal-500"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
+                        aria-label={`View certification for ${cert.title}`}
                       >
                         <ExternalLink size={20} />
                       </motion.a>
