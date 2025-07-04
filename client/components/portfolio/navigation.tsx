@@ -32,7 +32,6 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const [scrollProgress, setScrollProgress] = useState(0);
-
   const settingsRef = useRef<HTMLDivElement | null>(null);
   const settingsButtonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -44,7 +43,6 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
       setScrollProgress((scrollY / totalHeight) * 100);
 
       const scrollPosition = window.scrollY + 100;
-
       if (scrollPosition < window.innerHeight) {
         setActiveSection("home");
         return;
@@ -63,13 +61,11 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
     handleScroll();
-
+    window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close settings menu on scroll or clicking outside
   useEffect(() => {
     const handleScrollClose = () => {
       if (isSettingsOpen) {
@@ -91,7 +87,6 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
 
     window.addEventListener("scroll", handleScrollClose);
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       window.removeEventListener("scroll", handleScrollClose);
       document.removeEventListener("mousedown", handleClickOutside);
@@ -107,7 +102,7 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
     }
     const element = document.getElementById(href.substring(1));
     if (element) {
-      const offset = 80;
+      const offset = 64; // 4rem
       const elementPosition = element.offsetTop - offset;
       window.scrollTo({ top: elementPosition, behavior: "smooth" });
     }
@@ -135,7 +130,7 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
+        initial={{ y: 0 }} // Changed from y: -100 to avoid initial shift
         animate={{ y: 0 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
@@ -144,16 +139,18 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
             : "bg-transparent"
         }`}
         role="navigation"
+        style={{ height: "4rem" }}
       >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="container mx-auto px-4 max-w-[100vw]">
+          <div className="flex items-center justify-between h-16">
             <motion.button
               onClick={() => scrollToSection("#")}
               className="flex items-center space-x-2 focus:outline-none"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              aria-label="Go to Home"
             >
-              <span className="text-xl font-semibold dark:text-white hidden sm:block">
+              <span className="text-lg font-semibold dark:text-white hidden sm:block truncate">
                 Navodya Manamendra
               </span>
             </motion.button>
@@ -171,6 +168,7 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  aria-current={activeSection === item.id ? "page" : undefined}
                 >
                   <span className="flex items-center space-x-2">
                     {item.icon}
@@ -181,7 +179,10 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
               <div className="relative">
                 <motion.button
                   ref={settingsButtonRef}
-                  onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent click from bubbling
+                    setIsSettingsOpen(!isSettingsOpen);
+                  }}
                   className={`relative group px-4 py-2 rounded-lg font-medium text-sm transition-all before:absolute before:inset-0 before:rounded-lg before:opacity-0 before:transition-opacity before:bg-[hsl(172,85%,35%)]/10 group-hover:before:opacity-100 ${
                     isSettingsOpen
                       ? "text-[hsl(172,85%,35%)] dark:text-[hsl(172,85%,45%)]"
@@ -189,6 +190,8 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  aria-label="Toggle settings menu"
+                  aria-expanded={isSettingsOpen}
                 >
                   <span className="flex items-center space-x-2">
                     <Settings size={16} />
@@ -204,6 +207,7 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
                       animate="animate"
                       exit="exit"
                       className="absolute right-0 mt-2 w-48 bg-white/90 dark:bg-[hsl(213,50%,12%)]/90 backdrop-blur-md border border-[hsl(172,85%,35%)]/20 dark:border-[hsl(172,85%,45%)]/30 shadow-lg rounded-lg py-2"
+                      onClick={(e) => e.stopPropagation()} // Prevent clicks inside from closing
                     >
                       <div className="px-4 py-2">
                         <ThemeToggle />
@@ -223,10 +227,12 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
             <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 rounded-lg text-[hsl(213,50%,16%)] dark:text-white hover:bg-[hsl(172,85%,35%)]/10 dark:hover:bg-[hsl(172,85%,45%)]/10"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </motion.button>
           </div>
         </div>
@@ -235,61 +241,64 @@ export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: Navigation
           className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[hsl(172,85%,35%)] to-[hsl(172,85%,45%)]"
           style={{ width: `${scrollProgress}%` }}
         />
-
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              id="mobile-menu"
-              variants={mobileMenuVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="md:hidden fixed top-16 right-0 w-3/4 max-w-xs bg-white/90 dark:bg-[hsl(213,50%,12%)]/90 backdrop-blur-md border-l border-[hsl(172,85%,35%)]/20 dark:border-[hsl(172,85%,45%)]/30 shadow-lg"
-            >
-              <div className="flex flex-col py-4 px-6 space-y-3">
-                {navItems.map((item, index) => (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.href)}
-                    onKeyDown={(e) => handleKeyDown(e, item.href)}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0, transition: { delay: index * 0.1 } }}
-                    className={`text-left px-4 py-3 rounded-lg font-medium text-sm tracking-wide transition-all duration-200 focus:outline-none ${
-                      activeSection === item.id
-                        ? "text-[hsl(172,85%,35%)] dark:text-[hsl(172,85%,45%)] bg-[hsl(172,85%,35%)]/10 dark:bg-[hsl(172,85%,45%)]/10"
-                        : "text-[hsl(213,50%,16%)] dark:text-gray-300 hover:bg-[hsl(172,85%,35%)]/10 dark:hover:bg-[hsl(172,85%,45%)]/10"
-                    }`}
-                  >
-                    <span className="flex items-center space-x-2">
-                      {item.icon}
-                      <span>{item.label}</span>
-                    </span>
-                  </motion.button>
-                ))}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0, transition: { delay: navItems.length * 0.1 } }}
-                  className="px-4 py-3"
-                >
-                  <div className="flex items-center space-x-2 text-[hsl(213,50%,16%)] dark:text-gray-300">
-                    <Settings size={16} />
-                    <span>Settings</span>
-                  </div>
-                  <div className="mt-2 pl-6 space-y-2">
-                    <ThemeToggle />
-                    <MouseTrailToggle
-                      isMouseTrailEnabled={isMouseTrailEnabled}
-                      toggleMouseTrail={toggleMouseTrail}
-                    />
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.nav>
 
-      <div className="h-16 md:h-20" aria-hidden="true" />
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            id="mobile-menu"
+            variants={mobileMenuVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="md:hidden fixed top-16 right-0 w-3/4 max-w-xs bg-white/90 dark:bg-[hsl(213,50%,12%)]/90 backdrop-blur-md border-l border-[hsl(172,85%,35%)]/20 dark:border-[hsl(172,85%,45%)]/30 shadow-lg z-40"
+            style={{ top: "4rem" }}
+            onClick={(e) => e.stopPropagation()} // Prevent clicks inside from closing
+          >
+            <div className="flex flex-col py-4 px-6 space-y-3">
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.href)}
+                  onKeyDown={(e) => handleKeyDown(e, item.href)}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0, transition: { delay: index * 0.1 } }}
+                  className={`text-left px-4 py-3 rounded-lg font-medium text-sm tracking-wide transition-all duration-200 focus:outline-none ${
+                    activeSection === item.id
+                      ? "text-[hsl(172,85%,35%)] dark:text-[hsl(172,85%,45%)] bg-[hsl(172,85%,35%)]/10 dark:bg-[hsl(172,85%,45%)]/10"
+                      : "text-[hsl(213,50%,16%)] dark:text-gray-300 hover:bg-[hsl(172,85%,35%)]/10 dark:hover:bg-[hsl(172,85%,45%)]/10"
+                  }`}
+                  aria-current={activeSection === item.id ? "page" : undefined}
+                >
+                  <span className="flex items-center space-x-2">
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </span>
+                </motion.button>
+              ))}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0, transition: { delay: navItems.length * 0.1 } }}
+                className="px-4 py-3"
+              >
+                <div className="flex items-center space-x-2 text-[hsl(213,50%,16%)] dark:text-gray-300 text-sm font-medium">
+                  <Settings size={16} />
+                  <span>Settings</span>
+                </div>
+                <div className="mt-2 pl-6 space-y-2">
+                  <ThemeToggle />
+                  <MouseTrailToggle
+                    isMouseTrailEnabled={isMouseTrailEnabled}
+                    toggleMouseTrail={toggleMouseTrail}
+                  />
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="h-16" aria-hidden="true" style={{ height: "4rem" }} />
     </>
   );
 }

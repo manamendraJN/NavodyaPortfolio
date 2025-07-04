@@ -71,49 +71,51 @@ export function TechnologiesSection() {
       ? technologies
       : technologies.filter((tech) => tech.category === selectedCategory);
 
-  const groupedTechnologies =
-    selectedCategory === 'All'
-      ? categories
-          .filter((cat) => cat !== 'All')
-          .map((cat) => ({
-            category: cat,
-            items: technologies.filter((tech) => tech.category === cat),
-          }))
-          .filter((group) => group.items.length > 0)
-      : [{ category: selectedCategory, items: filteredTechnologies }];
+  const groupedTechnologies = categories
+    .filter((cat) => cat !== 'All')
+    .map((cat) => ({
+      category: cat,
+      items: technologies.filter((tech) => tech.category === cat),
+    }))
+    .filter((group) => group.items.length > 0);
 
   return (
     <section
       id="technologies"
-      className="py-8 sm:py-16 lg:py-24 bg-gray-50 dark:bg-slate-900 transition-colors duration-300"
+      className="py-8 sm:py-12 lg:py-16 bg-gray-50 dark:bg-slate-900 transition-colors duration-300 touch-auto"
       role="region"
       aria-labelledby="technologies-heading"
+      style={{ touchAction: "auto" }}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-12 lg:mb-16"
+          className="text-center mb-6 sm:mb-8 lg:mb-12"
         >
-          <h2
-            id="technologies-heading"
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-slate-100 mb-4"
-          >
-            Technologies & Skills
-          </h2>
+<div className="text-center mb-4 sm:mb-5 md:mb-6">
+  <h2
+    id="technologies-heading"
+    className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white"
+  >
+    Technologies & <span className="text-emerald-600 dark:text-emerald-400">Skills</span>
+  </h2>
+  <div className="mx-auto mt-4 h-1 w-20 bg-emerald-500 rounded-full" />
+</div>
           <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
             A comprehensive toolkit built through continuous learning and hands-on experience
           </p>
         </motion.div>
 
+        {/* Category Filters - Hidden on Mobile */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="hidden sm:flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12"
+          className="hidden sm:flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8"
           role="tablist"
           aria-label="Technology categories"
         >
@@ -125,7 +127,7 @@ export function TechnologiesSection() {
               role="tab"
               aria-selected={selectedCategory === category}
               aria-controls="technologies-grid"
-              className={`min-w-[100px] sm:min-w-[120px] px-3 py-2 sm:px-4 sm:py-3 rounded-full transition-all duration-300 font-medium text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50 touch-manipulation ${
+              className={`min-w-[90px] sm:min-w-[110px] px-3 sm:px-4 py-2 sm:py-2.5 rounded-full transition-all duration-300 font-medium text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50 min-h-[40px] sm:min-h-[44px] touch-action-manipulation ${
                 selectedCategory === category
                   ? 'bg-teal-600 dark:bg-teal-500 text-white shadow-lg scale-105'
                   : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-gray-200 dark:border-slate-700 hover:bg-teal-100 dark:hover:bg-teal-900/50 hover:text-teal-600 dark:hover:text-teal-400 active:bg-teal-200 dark:active:bg-teal-800'
@@ -136,12 +138,13 @@ export function TechnologiesSection() {
           ))}
         </motion.div>
 
+        {/* Technologies Grid */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
+          viewport={{ once: true, amount: 0.2 }}
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6"
           id="technologies-grid"
           role="tabpanel"
         >
@@ -150,48 +153,53 @@ export function TechnologiesSection() {
               No technologies found for this category.
             </div>
           ) : (
-            groupedTechnologies.map((group, index) => (
+            (selectedCategory === 'All' ? groupedTechnologies : groupedTechnologies.filter(group => group.category === selectedCategory)).map((group, index) => (
               <motion.div
                 key={group.category}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-slate-800 rounded-xl p-4 sm:p-6 border border-gray-200 dark:border-slate-700 shadow-md hover:bg-teal-50 dark:hover:bg-teal-900/70 transition-all duration-300"
+                className="bg-white dark:bg-slate-800 rounded-xl p-3 sm:p-5 border border-gray-200 dark:border-slate-700 shadow-md hover:bg-teal-50 dark:hover:bg-teal-900/70 transition-all duration-300"
                 tabIndex={0}
                 role="region"
                 aria-label={`${group.category} technologies`}
               >
-                <div className="mb-4">
-                  <h3 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
+                <div className="mb-2 sm:mb-4">
+                  <h3 className="text-sm sm:text-lg font-semibold text-slate-900 dark:text-slate-100 line-clamp-1">
                     {group.category}
                   </h3>
                 </div>
-                <ul className="space-y-2 sm:space-y-3">
+                <ul className="space-y-1 sm:space-y-3">
                   {group.items.length === 0 ? (
-                    <li className="text-sm text-slate-600 dark:text-slate-300">No items in this category.</li>
+                    <li className="text-xs sm:text-base text-slate-600 dark:text-slate-300">
+                      No items in this category.
+                    </li>
                   ) : (
                     group.items.map((tech) => (
                       <li
                         key={tech.name}
-                        className="flex items-center text-sm sm:text-base text-slate-600 dark:text-slate-300 group"
+                        className="flex items-center text-xs sm:text-base text-slate-600 dark:text-slate-300 group"
                         title={tech.description}
                       >
                         {isMounted ? (
                           <ReactSVG
                             src={tech.icon}
-                            className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0"
+                            className="w-4 sm:w-6 h-4 sm:h-6 mr-1 sm:mr-3 flex-shrink-0"
                             aria-hidden="true"
-                            loading={() => <span className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 bg-gray-200 dark:bg-slate-700 rounded animate-pulse" />}
+                            loading={() => (
+                              <span className="w-4 h-4 sm:w-6 sm:h-6 mr-1 sm:mr-3 bg-gray-200 dark:bg-slate-700 rounded animate-pulse" />
+                            )}
                             beforeInjection={(svg) => {
-                              svg.setAttribute('style', 'width: 24px; height: 24px;');
+                              svg.setAttribute('style', 'width: 16px; height: 16px;');
+                              svg.setAttribute('class', 'sm:w-6 sm:h-6');
                             }}
                             onError={(error) => console.error(`Failed to load SVG for ${tech.name}:`, error)}
                           />
                         ) : (
-                          <span className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 bg-gray-200 dark:bg-slate-700 rounded animate-pulse" />
+                          <span className="w-4 h-4 sm:w-6 sm:h-6 mr-1 sm:mr-3 bg-gray-200 dark:bg-slate-700 rounded animate-pulse" />
                         )}
-                        <span className="group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-200">
+                        <span className="group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-200 line-clamp-1">
                           {tech.name}
                         </span>
                       </li>

@@ -145,20 +145,29 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="py-20 bg-gray-100 dark:bg-[hsl(213,50%,12%)] text-gray-900 dark:text-white transition-colors duration-300"
+      className="py-12 sm:py-16 lg:py-20 bg-gray-100 dark:bg-[hsl(213,50%,12%)] text-gray-900 dark:text-white transition-colors duration-300 touch-auto"
+      role="region"
+      aria-labelledby="projects-heading"
+      style={{ touchAction: "auto" }}
     >
-      <div className="container">
+      <div className="container px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Featured Projects
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-white/70 max-w-3xl mx-auto">
+<div className="text-center mb-4 sm:mb-5 md:mb-6">
+  <h2
+    id="projects-heading"
+    className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white"
+  >
+    Featured <span className="text-emerald-600 dark:text-emerald-400">Projects</span>
+  </h2>
+  <div className="mx-auto mt-4 h-1 w-20 bg-emerald-500 rounded-full" />
+</div>
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-white/70 max-w-3xl mx-auto">
             Showcasing innovative solutions built with modern technologies
           </p>
         </motion.div>
@@ -167,14 +176,14 @@ export function ProjectsSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10"
         >
           {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={cardVariants}
               whileHover={{ scale: 1.03 }}
-              className="bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300 cursor-pointer"
+              className="bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300 cursor-pointer"
               onClick={() => {
                 setSelectedProject(project);
                 setCurrentImageIndex(0);
@@ -185,12 +194,12 @@ export function ProjectsSection() {
                 <img
                   src={project.images[0] || "https://via.placeholder.com/600x400?text=No+Image"}
                   alt={`${project.title} preview`}
-                  className="w-full h-48 object-cover rounded-lg"
+                  className="w-full h-40 sm:h-48 object-cover rounded-lg"
                   loading="lazy"
                 />
                 <div className="flex justify-between items-center mt-2">
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium tracking-wide uppercase ${
+                    className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium tracking-wide uppercase ${
                       project.status === "Ongoing"
                         ? "bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400"
                         : "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400"
@@ -203,29 +212,29 @@ export function ProjectsSection() {
 
               <motion.h3
                 variants={childVariants}
-                className="text-xl font-semibold text-gray-900 dark:text-white mb-2 line-clamp-1"
+                className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2 line-clamp-1"
               >
-vae                {project.title}
+                {project.title}
               </motion.h3>
 
               <motion.p
                 variants={childVariants}
-                className="text-sm text-gray-600 dark:text-slate-400 mb-4 line-clamp-3 leading-relaxed"
+                className="text-sm sm:text-base text-gray-600 dark:text-slate-400 mb-4 line-clamp-3 leading-relaxed"
               >
                 {project.description}
               </motion.p>
 
-              <motion.div variants={childVariants} className="flex flex-wrap gap-2 mb-4">
+              <motion.div variants={childVariants} className="flex flex-wrap gap-2 sm:gap-3 mb-4">
                 {project.technologies.slice(0, 3).map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 rounded-full text-xs bg-gray-200 text-gray-700 dark:bg-slate-700 dark:text-slate-300"
+                    className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-gray-200 text-gray-700 dark:bg-slate-700 dark:text-slate-300"
                   >
                     {tech}
                   </span>
                 ))}
                 {project.technologies.length > 3 && (
-                  <span className="px-3 py-1 rounded-full text-xs bg-gray-300 text-gray-600 dark:bg-slate-600 dark:text-slate-400">
+                  <span className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-gray-300 text-gray-600 dark:bg-slate-600 dark:text-slate-400">
                     +{project.technologies.length - 3}
                   </span>
                 )}
@@ -234,7 +243,8 @@ vae                {project.title}
               <motion.div variants={childVariants}>
                 <Button
                   variant="outline"
-                  className="w-full px-5 py-2 bg-gradient-to-r from-teal-700 to-cyan-600 text-white font-medium rounded-lg hover:from-teal-600 hover:to-cyan-700 dark:hover:from-teal-400 dark:hover:to-cyan-500 shadow-md"
+                  className="w-full px-4 sm:px-5 py-2 bg-gradient-to-r from-teal-700 to-cyan-600 text-white font-medium rounded-lg hover:from-teal-600 hover:to-cyan-700 dark:hover:from-teal-400 dark:hover:to-cyan-500 shadow-md min-h-[44px]"
+                  style={{ touchAction: "manipulation" }}
                 >
                   View Details
                 </Button>
@@ -248,8 +258,10 @@ vae                {project.title}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-50 bg-black/60 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/60 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
             onClick={() => setSelectedProject(null)}
+            style={{ touchAction: "auto" }}
           >
             {isSliderExpanded ? (
               <motion.div
@@ -261,10 +273,11 @@ vae                {project.title}
               >
                 <button
                   onClick={handleToggleExpand}
-                  className="fixed top-2 right-2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 z-10"
+                  className="fixed top-4 sm:top-6 right-4 sm:right-6 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 sm:p-3 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 min-h-[44px] min-w-[44px] flex items-center justify-center z-10"
                   aria-label="Collapse image"
+                  style={{ touchAction: "manipulation" }}
                 >
-                  <Minimize size={24} />
+                  <Minimize className="w-5 sm:w-6 h-5 sm:h-6" />
                 </button>
                 <div className="relative w-full max-w-[95vw] max-h-[90vh] overflow-hidden rounded-lg">
                   {selectedProject.images.map((image, index) => (
@@ -284,29 +297,32 @@ vae                {project.title}
                     <>
                       <button
                         onClick={handlePrevImage}
-                        className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 sm:p-3 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 min-h-[44px] min-w-[44px] flex items-center justify-center"
                         aria-label="Previous image"
+                        style={{ touchAction: "manipulation" }}
                       >
-                        <ChevronLeft size={24} />
+                        <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6" />
                       </button>
                       <button
                         onClick={handleNextImage}
-                        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        className="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 sm:p-3 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 min-h-[44px] min-w-[44px] flex items-center justify-center"
                         aria-label="Next image"
+                        style={{ touchAction: "manipulation" }}
                       >
-                        <ChevronRight size={24} />
+                        <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6" />
                       </button>
-                      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
+                      <div className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
                         {selectedProject.images.map((_, index) => (
                           <button
                             key={index}
                             onClick={() => setCurrentImageIndex(index)}
-                            className={`w-2 h-2 rounded-full ${
+                            className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${
                               index === currentImageIndex
                                 ? "bg-teal-500"
                                 : "bg-gray-400 dark:bg-gray-500"
                             }`}
                             aria-label={`Go to image ${index + 1}`}
+                            style={{ touchAction: "manipulation" }}
                           />
                         ))}
                       </div>
@@ -319,19 +335,20 @@ vae                {project.title}
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                className="relative bg-white dark:bg-slate-800 rounded-3xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+                className="relative bg-white dark:bg-slate-800 rounded-3xl shadow-xl w-full max-w-[95vw] sm:max-w-3xl max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 z-10"
+                  className="absolute top-4 sm:top-6 right-4 sm:right-6 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 sm:p-3 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 min-h-[44px] min-w-[44px] flex items-center justify-center z-10"
                   aria-label="Close modal"
+                  style={{ touchAction: "manipulation" }}
                 >
-                  <X size={24} />
+                  <X className="w-5 sm:w-6 h-5 sm:h-6" />
                 </button>
-                <div className="p-6 sm:p-8">
-                  <div className="relative mb-6">
-                    <div className="relative w-full aspect-[16/9] max-h-96 rounded-lg overflow-hidden">
+                <div className="p-4 sm:p-6 md:p-8">
+                  <div className="relative mb-4 sm:mb-6">
+                    <div className="relative w-full aspect-[16/9] max-h-64 sm:max-h-80 md:max-h-96 rounded-lg overflow-hidden">
                       {selectedProject.images.map((image, index) => (
                         <img
                           key={index}
@@ -345,46 +362,49 @@ vae                {project.title}
                           aria-label="Click to expand image"
                         />
                       ))}
+                      {selectedProject.images.length > 1 && (
+                        <>
+                          <button
+                            onClick={handlePrevImage}
+                            className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 sm:p-3 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                            aria-label="Previous image"
+                            style={{ touchAction: "manipulation" }}
+                          >
+                            <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6" />
+                          </button>
+                          <button
+                            onClick={handleNextImage}
+                            className="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 sm:p-3 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                            aria-label="Next image"
+                            style={{ touchAction: "manipulation" }}
+                          >
+                            <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6" />
+                          </button>
+                          <div className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                            {selectedProject.images.map((_, index) => (
+                              <button
+                                key={index}
+                                onClick={() => setCurrentImageIndex(index)}
+                                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${
+                                  index === currentImageIndex
+                                    ? "bg-teal-500"
+                                    : "bg-gray-400 dark:bg-gray-500"
+                                }`}
+                                aria-label={`Go to image ${index + 1}`}
+                                style={{ touchAction: "manipulation" }}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      )}
                     </div>
-                    {selectedProject.images.length > 1 && (
-                      <>
-                        <button
-                          onClick={handlePrevImage}
-                          className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                          aria-label="Previous image"
-                        >
-                          <ChevronLeft size={24} />
-                        </button>
-                        <button
-                          onClick={handleNextImage}
-                          className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                          aria-label="Next image"
-                        >
-                          <ChevronRight size={24} />
-                        </button>
-                        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
-                          {selectedProject.images.map((_, index) => (
-                            <button
-                              key={index}
-                              onClick={() => setCurrentImageIndex(index)}
-                              className={`w-2 h-2 rounded-full ${
-                                index === currentImageIndex
-                                  ? "bg-teal-500"
-                                  : "bg-gray-400 dark:bg-gray-500"
-                              }`}
-                              aria-label={`Go to image ${index + 1}`}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    )}
                   </div>
 
-                  <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-start justify-between mb-4 sm:mb-6">
                     <div>
-                      <div className="flex items-center gap-4 mb-4">
+                      <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                         <span
-                          className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase ${
+                          className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase ${
                             selectedProject.status === "Ongoing"
                               ? "bg-emerald-600/10 text-emerald-500 dark:bg-emerald-500/20 dark:text-emerald-400"
                               : "bg-green-500/10 text-green-500 dark:bg-green-500/20 dark:text-green-400"
@@ -393,25 +413,25 @@ vae                {project.title}
                           {selectedProject.status}
                         </span>
                       </div>
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-1">
                         {selectedProject.title}
                       </h3>
                     </div>
                   </div>
 
-                  <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                  <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
                     {selectedProject.fullDescription}
                   </p>
 
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-2">
+                  <div className="mb-4 sm:mb-6">
+                    <h4 className="text-sm sm:text-base font-semibold text-slate-900 dark:text-white mb-2 sm:mb-3">
                       Technologies Used:
                     </h4>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
                       {selectedProject.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-3 py-1 rounded-full bg-teal-600/10 text-teal-700 dark:bg-teal-500/20 dark:text-teal-300 text-xs font-medium"
+                          className="px-2 sm:px-3 py-1 rounded-full bg-teal-600/10 text-teal-700 dark:bg-teal-500/20 dark:text-teal-300 text-xs sm:text-sm font-medium"
                         >
                           {tech}
                         </span>
@@ -419,17 +439,18 @@ vae                {project.title}
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-4">
+                  <div className="flex flex-wrap gap-3 sm:gap-4">
                     <Button
                       asChild
-                      className="bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white flex items-center gap-2 rounded-lg px-4 py-2 text-sm"
+                      className="bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white flex items-center gap-2 rounded-lg px-4 sm:px-5 py-2 text-sm sm:text-base min-h-[44px]"
+                      style={{ touchAction: "manipulation" }}
                     >
                       <a
                         href={selectedProject.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Github size={18} />
+                        <Github className="w-[18px] sm:w-5 h-[18px] sm:h-5" />
                         View Code
                       </a>
                     </Button>
@@ -438,14 +459,15 @@ vae                {project.title}
                       <Button
                         asChild
                         variant="outline"
-                        className="border-teal-600 text-teal-600 dark:border-teal-400 dark:text-teal-400 hover:bg-teal-600 hover:text-white dark:hover:bg-teal-400 dark:hover:text-slate-900 flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors"
+                        className="border-teal-600 text-teal-600 dark:border-teal-400 dark:text-teal-400 hover:bg-teal-600 hover:text-white dark:hover:bg-teal-400 dark:hover:text-slate-900 flex items-center gap-2 rounded-lg px-4 sm:px-5 py-2 text-sm sm:text-base min-h-[44px]"
+                        style={{ touchAction: "manipulation" }}
                       >
                         <a
                           href={selectedProject.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <ExternalLink size={18} />
+                          <ExternalLink className="w-[18px] sm:w-5 h-[18px] sm:h-5" />
                           Live Demo
                         </a>
                       </Button>

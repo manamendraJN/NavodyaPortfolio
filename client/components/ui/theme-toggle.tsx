@@ -1,19 +1,48 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 
-export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false);
+// Create ThemeContext for sharing theme state
+const ThemeContext = createContext<{
+  isDark: boolean;
+  toggleTheme: () => void;
+}>({
+  isDark: true,
+  toggleTheme: () => {},
+});
+
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
+    if (savedTheme) {
+      setIsDark(savedTheme === "dark");
+      if (savedTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
     } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     }
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "theme") {
+        const newTheme = e.newValue === "dark";
+        setIsDark(newTheme);
+        if (newTheme) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const toggleTheme = () => {
@@ -27,6 +56,16 @@ export function ThemeToggle() {
       localStorage.setItem("theme", "light");
     }
   };
+
+  return (
+    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+export function ThemeToggle() {
+  const { isDark, toggleTheme } = useContext(ThemeContext);
 
   return (
     <motion.button
