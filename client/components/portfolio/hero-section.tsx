@@ -1,23 +1,55 @@
 import { motion } from "framer-motion";
 import { TypingAnimation } from "../ui/typing-animation";
 import { Button } from "../ui/button";
+import { Canvas } from "@react-three/fiber";
+import { Stars, OrbitControls } from "@react-three/drei";
+import { useRef } from "react";
 
 export function HeroSection() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      // Focus management for accessibility
       element.focus();
     }
   };
 
+  const canvasRef = useRef(null);
+
   return (
     <section
-      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-[hsl(213,50%,16%)] to-[hsl(0,0%,98%)] dark:from-[hsl(213,50%,12%)] dark:to-[hsl(213,50%,18%)] flex items-center justify-center transition-colors duration-300 pt-16 md:pt-20"
+      className="min-h-screen relative overflow-hidden bg-[hsl(213,50%,12%)] flex items-center justify-center transition-colors duration-300 pt-16 md:pt-20"
       role="banner"
       aria-label="Hero section introducing Navodya Manamendra"
     >
+      {/* 3D Space Background with Stars */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <Canvas
+          ref={canvasRef}
+          camera={{ position: [0, 0, 10], fov: 75 }}
+          style={{ background: "radial-gradient(circle, hsl(213,50%,16%) 0%, hsl(213,50%,10%) 100%)" }}
+        >
+          <ambientLight intensity={0.4} />
+          <pointLight position={[10, 10, 10]} intensity={0.8} />
+          <Stars
+            radius={150}
+            depth={60}
+            count={7000}
+            factor={3}
+            saturation={0.1}
+            fade
+            speed={0.1}
+          />
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            enableRotate={true}
+            autoRotate
+            autoRotateSpeed={0.2}
+          />
+        </Canvas>
+      </div>
+
       {/* Background geometric patterns with reduced motion */}
       <div className="absolute inset-0 opacity-10" aria-hidden="true">
         <motion.div
@@ -104,11 +136,10 @@ export function HeroSection() {
           >
             <Button
               className="bg-[hsl(172,85%,35%)] hover:bg-[hsl(172,85%,30%)] text-white text-base font-medium px-6 py-5 rounded-md shadow-sm hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 min-w-[180px]"
-              
             >
-            <a href="/client/components/CV/Navodya_Manamendra_CV.pdf" download="NavodyaManamendra_CV.pdf">
-    <button>Download My CV</button>
-</a>
+              <a href="/client/components/CV/Navodya_Manamendra_CV.pdf" download="NavodyaManamendra_CV.pdf">
+                <button>Download My CV</button>
+              </a>
             </Button>
             <Button
               onClick={() => scrollToSection("contact")}
