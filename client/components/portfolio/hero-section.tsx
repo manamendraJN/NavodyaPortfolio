@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Canvas } from "@react-three/fiber";
 import { Stars, OrbitControls } from "@react-three/drei";
 import { useRef, useEffect, useState } from "react";
-import profileImg from "@/assets/dp/IMG_20250627_172506.jpg";
+import profileImg from "@/client/components/portfolio/dp/IMG_20250627_172506.jpg";
 
 export function HeroSection() {
   const scrollToSection = (id: string) => {
