@@ -154,7 +154,7 @@ export function CertificationsSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white dark:bg-teal-900/50 rounded-xl p-4 sm:p-6 border border-teal-200 dark:border-teal-800 shadow-md hover:bg-teal-50 dark:hover:bg-teal-900/70 transition-all duration-300"
+                  className=" dark:bg-teal-900/50 rounded-xl p-4 sm:p-6 border border-teal-200 dark:border-teal-800 shadow-md hover:bg-teal-50 dark:hover:bg-teal-900/70 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <h4 className="font-bold text-lg sm:text-xl text-slate-900 dark:text-slate-100">
@@ -177,6 +177,7 @@ export function CertificationsSection() {
               ))}
             </div>
 
+            {/* Additional Academic Highlights */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
