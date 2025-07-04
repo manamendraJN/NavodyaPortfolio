@@ -1,45 +1,51 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence, Variants, useReducedMotion } from "framer-motion";
+import { Menu, X, Home, User, Layers, Code, CheckSquare, Mail } from "lucide-react";
 
 interface NavItem {
   id: string;
   label: string;
   href: string;
+  icon: JSX.Element;
 }
 
 const navItems: NavItem[] = [
-  { id: "home", label: "Home", href: "#" },
-  { id: "about", label: "About", href: "#about" },
-  { id: "technologies", label: "Skills", href: "#technologies" },
-  { id: "projects", label: "Projects", href: "#projects" },
-  { id: "certifications", label: "Credentials", href: "#certifications" },
-  { id: "contact", label: "Contact", href: "#contact" },
+  { id: "home", label: "Home", href: "#", icon: <Home size={16} /> },
+  { id: "about", label: "About", href: "#about", icon: <User size={16} /> },
+  { id: "technologies", label: "Skills", href: "#technologies", icon: <Layers size={16} /> },
+  { id: "projects", label: "Projects", href: "#projects", icon: <Code size={16} /> },
+  { id: "certifications", label: "Credentials", href: "#certifications", icon: <CheckSquare size={16} /> },
+  { id: "contact", label: "Contact", href: "#contact", icon: <Mail size={16} /> },
 ];
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      const scrollY = window.scrollY;
+      const totalHeight = document.body.scrollHeight - window.innerHeight;
+      setScrollProgress((scrollY / totalHeight) * 100);
 
-      // Update active section based on scroll position
-      const sections = navItems.map((item) => item.id);
       const scrollPosition = window.scrollY + 100;
 
-      for (const sectionId of sections) {
-        const element = document.getElementById(
-          sectionId === "home" ? "" : sectionId,
-        );
-        if (element) {
-          const offsetTop = sectionId === "home" ? 0 : element.offsetTop;
-          const offsetBottom =
-            offsetTop +
-            (sectionId === "home" ? window.innerHeight : element.offsetHeight);
+      // Set home as active if near the top of the page
+      if (scrollPosition < window.innerHeight) {
+        setActiveSection("home");
+        return;
+      }
 
+      // Check other sections
+      for (const sectionId of navItems.map((item) => item.id)) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetBottom = offsetTop + element.offsetHeight;
           if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
             setActiveSection(sectionId);
             break;
@@ -49,22 +55,19 @@ export function Navigation() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Call once to set initial state
-
+    handleScroll(); // Initialize on mount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (href: string) => {
     setIsMobileMenuOpen(false);
-
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-
     const element = document.getElementById(href.substring(1));
     if (element) {
-      const offset = 80; // Account for fixed nav height
+      const offset = 80;
       const elementPosition = element.offsetTop - offset;
       window.scrollTo({ top: elementPosition, behavior: "smooth" });
     }
@@ -77,120 +80,115 @@ export function Navigation() {
     }
   };
 
+  const mobileMenuVariants: Variants = {
+    initial: { x: "100%", opacity: 0 },
+    animate: { x: 0, opacity: 1, transition: { duration: shouldReduceMotion ? 0 : 0.3 } },
+    exit: { x: "100%", opacity: 0, transition: { duration: shouldReduceMotion ? 0 : 0.3 } },
+  };
+
   return (
     <>
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 dark:bg-[hsl(213,50%,12%)]/95 backdrop-blur-lg shadow-lg border-b border-[hsl(210,18%,85%)]/20 dark:border-[hsl(172,85%,45%)]/20"
+            ? "bg-white/30 dark:bg-[hsl(213,50%,12%)]/30 backdrop-blur-xl shadow-xl border-b border-white/20 dark:border-[hsl(172,85%,45%)]/30"
             : "bg-transparent"
         }`}
         role="navigation"
-        aria-label="Main navigation"
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo/Name */}
             <motion.button
               onClick={() => scrollToSection("#")}
-              className="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 rounded-lg p-2 -ml-2"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center space-x-2 focus:outline-none"
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              aria-label="Go to homepage"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-[hsl(172,85%,35%)] to-[hsl(213,50%,16%)] dark:from-[hsl(172,85%,45%)] dark:to-[hsl(213,50%,20%)] rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-10 h-10 bg-gradient-to-br from-[hsl(172,85%,35%)] to-[hsl(213,50%,16%)] dark:from-[hsl(172,85%,45%)] dark:to-[hsl(213,50%,20%)] rounded-full flex items-center justify-center text-white font-bold text-base shadow-md">
                 NM
               </div>
-              <span className="text-lg font-bold text-[hsl(213,50%,16%)] dark:text-[hsl(0,0%,98%)] hidden sm:block">
+              <span className="text-xl font-semibold dark:text-white hidden sm:block">
                 Navodya Manamendra
               </span>
             </motion.button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
+            <div className="hidden md:flex items-center space-x-4">
               {navItems.map((item) => (
                 <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.href)}
                   onKeyDown={(e) => handleKeyDown(e, item.href)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 relative ${
+                  className={`relative group px-4 py-2 rounded-lg font-medium text-sm transition-all before:absolute before:inset-0 before:rounded-lg before:opacity-0 before:transition-opacity before:bg-[hsl(172,85%,35%)]/10 group-hover:before:opacity-100 ${
                     activeSection === item.id
                       ? "text-[hsl(172,85%,35%)] dark:text-[hsl(172,85%,45%)]"
-                      : "text-[hsl(213,50%,16%)] dark:text-[hsl(0,0%,85%)] hover:text-[hsl(172,85%,35%)] dark:hover:text-[hsl(172,85%,45%)]"
+                      : "text-[hsl(213,50%,16%)] dark:text-gray-300 hover:text-[hsl(172,85%,35%)] dark:hover:text-[hsl(172,85%,45%)]"
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  aria-current={activeSection === item.id ? "page" : undefined}
                 >
-                  {item.label}
-                  {activeSection === item.id && (
-                    <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[hsl(172,85%,35%)] dark:bg-[hsl(172,85%,45%)] rounded-full"
-                      layoutId="activeSection"
-                      initial={false}
-                    />
-                  )}
+                  <span className="flex items-center space-x-2">
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </span>
                 </motion.button>
               ))}
             </div>
 
-            {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-[hsl(213,50%,16%)] dark:text-[hsl(0,0%,98%)] hover:bg-[hsl(210,18%,85%)]/20 dark:hover:bg-[hsl(213,50%,20%)] focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50"
-              whileHover={{ scale: 1.05 }}
+              className="md:hidden p-2 rounded-lg text-[hsl(213,50%,16%)] dark:text-white hover:bg-[hsl(172,85%,35%)]/10 dark:hover:bg-[hsl(172,85%,45%)]/10"
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </motion.button>
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
+        <motion.div
+          className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[hsl(172,85%,35%)] to-[hsl(172,85%,45%)]"
+          style={{ width: `${scrollProgress}%` }}
+        />
+
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
               id="mobile-menu"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white/95 dark:bg-[hsl(213,50%,12%)]/95 backdrop-blur-lg border-t border-[hsl(210,18%,85%)]/20 dark:border-[hsl(172,85%,45%)]/20"
+              variants={mobileMenuVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="md:hidden fixed top-16 right-0 w-3/4 max-w-xs bg-white/90 dark:bg-[hsl(213,50%,12%)]/90 backdrop-blur-md border-l border-[hsl(172,85%,35%)]/20 dark:border-[hsl(172,85%,45%)]/30 shadow-lg"
             >
-              <div className="container mx-auto px-4 py-4">
-                <div className="flex flex-col space-y-2">
-                  {navItems.map((item, index) => (
-                    <motion.button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.href)}
-                      onKeyDown={(e) => handleKeyDown(e, item.href)}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className={`text-left px-4 py-3 rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 ${
-                        activeSection === item.id
-                          ? "text-[hsl(172,85%,35%)] dark:text-[hsl(172,85%,45%)] bg-[hsl(172,85%,35%)]/10 dark:bg-[hsl(172,85%,45%)]/10"
-                          : "text-[hsl(213,50%,16%)] dark:text-[hsl(0,0%,85%)] hover:bg-[hsl(210,18%,85%)]/20 dark:hover:bg-[hsl(213,50%,20%)]"
-                      }`}
-                      aria-current={
-                        activeSection === item.id ? "page" : undefined
-                      }
-                    >
-                      {item.label}
-                    </motion.button>
-                  ))}
-                </div>
+              <div className="flex flex-col py-4 px-6 space-y-3">
+                {navItems.map((item, index) => (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.href)}
+                    onKeyDown={(e) => handleKeyDown(e, item.href)}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0, transition: { delay: index * 0.1 } }}
+                    className={`text-left px-4 py-3 rounded-lg font-medium text-sm tracking-wide transition-all duration-200 focus:outline-none ${
+                      activeSection === item.id
+                        ? "text-[hsl(172,85%,35%)] dark:text-[hsl(172,85%,45%)] bg-[hsl(172,85%,35%)]/10 dark:bg-[hsl(172,85%,45%)]/10"
+                        : "text-[hsl(213,50%,16%)] dark:text-gray-300 hover:bg-[hsl(172,85%,35%)]/10 dark:hover:bg-[hsl(172,85%,45%)]/10"
+                    }`}
+                  >
+                    <span className="flex items-center space-x-2">
+                      {item.icon}
+                      <span>{item.label}</span>
+                    </span>
+                  </motion.button>
+                ))}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </motion.nav>
 
-      {/* Spacer to prevent content from hiding behind fixed nav */}
       <div className="h-16 md:h-20" aria-hidden="true" />
     </>
   );
