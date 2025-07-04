@@ -18,7 +18,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="min-h-screen relative overflow-hidden bg-[hsl(213,50%,12%)] flex items-center justify-center transition-colors duration-300 pt-16 md:pt-20"
+      className="pb-20  min-h-screen relative overflow-hidden flex items-center justify-center transition-colors duration-300 bg-[hsl(213,50%,12%)]"
       role="banner"
       aria-label="Hero section introducing Navodya Manamendra"
     >
@@ -101,68 +101,67 @@ export function HeroSection() {
             />
           </motion.div>
 
-          {/* Typing animation for main heading - WCAG compliant */}
+          {/* Refined Typing Animation */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
             className="mb-6"
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-[hsl(213,50%,16%)] dark:text-[hsl(0,0%,98%)] mb-4">
+            <h1 className="text-4xl md:text-5xl font-semibold text-[hsl(0,0%,98%)] tracking-tight">
               <TypingAnimation
-                text="Hi, I'm Navodya Manamendra 👋"
-                className="inline-block"
-                speed={80}
+                text="Navodya Manamendra"
+                className="inline-block bg-gradient-to-r from-[hsl(172,85%,35%)] to-[hsl(210,18%,82%)] bg-clip-text text-transparent"
+                speed={50}
               />
             </h1>
           </motion.div>
 
-          {/* Subheading with high contrast - WCAG AA compliant */}
+          {/* Professional Subheading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.5 }}
-            className="mb-8"
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="mb-10"
           >
-            <p className="text-xl md:text-2xl text-[hsl(172,85%,35%)] dark:text-[hsl(172,85%,45%)] font-medium">
-              <span className="gradient-text drop-shadow-lg">
-                Full-Stack Developer | Web Developer | Innovator
-              </span>
+            <p className="text-lg md:text-xl font-medium text-[hsl(210,18%,82%)] tracking-wide">
+              Full-Stack Developer  |  Web Developer  |  Innovator
             </p>
           </motion.div>
 
-          {/* Call-to-action buttons - Fitts's Law optimized with 48px minimum touch target */}
+          {/* Refined Call-to-Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.2 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            transition={{ duration: 0.8, delay: 1.8 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Button
               className="bg-[hsl(172,85%,35%)] hover:bg-[hsl(172,85%,30%)] text-white text-base font-medium px-6 py-5 rounded-md shadow-sm hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 min-w-[180px]"
+              
             >
-              <a href="/client/components/CV/Navodya_Manamendra_CV.pdf" download="NavodyaManamendra_CV.pdf">
-                <button>Download My CV</button>
-              </a>
+            <a href="/client/components/CV/Navodya_Manamendra_CV.pdf" download="NavodyaManamendra_CV.pdf">
+    <button>Download My CV</button>
+</a>
             </Button>
             <Button
               onClick={() => scrollToSection("contact")}
               variant="outline"
-              className="border-2 border-[hsl(172,85%,35%)] text-[hsl(172,85%,35%)] hover:bg-[hsl(172,85%,35%)] hover:text-white dark:border-[hsl(172,85%,45%)] dark:text-[hsl(172,85%,45%)] dark:hover:bg-[hsl(172,85%,45%)] dark:hover:text-[hsl(213,50%,12%)] transition-all duration-300 text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 min-w-[200px] min-h-[48px]"
+              className="border-2 border-[hsl(172,85%,35%)] text-[hsl(172,85%,35%)] hover:bg-[hsl(172,85%,35%)] hover:text-white text-base font-medium px-6 py-3 rounded-md shadow-sm hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 min-w-[180px]"
               aria-label="Navigate to contact section"
             >
-              Connect With Me 💬
+              Contact Me
             </Button>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll indicator with accessibility considerations */}
+      {/* Elegant Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 3 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        transition={{ duration: 1, delay: 2.5 }}
+        className="absolute bottom-30 left-1/2 transform -translate-x-1/2"
         role="button"
         tabIndex={0}
         aria-label="Scroll down to continue"
@@ -175,14 +174,14 @@ export function HeroSection() {
         }}
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-[hsl(172,85%,32%)] rounded-full flex justify-center cursor-pointer hover:border-[hsl(213,50%,16%)] transition-colors focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,32%)] focus:ring-opacity-50"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          className="w-5 h-8 border-2 border-[hsl(210,18%,82%)] rounded-full flex justify-center items-start cursor-pointer hover:border-[hsl(172,85%,35%)] transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,32%)] focus:ring-opacity-50"
         >
           <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-1 h-3 bg-[hsl(172,85%,32%)] rounded-full mt-2"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="w-1 h-2 bg-[hsl(172,85%,35%)] rounded-full mt-2"
           />
         </motion.div>
       </motion.div>
