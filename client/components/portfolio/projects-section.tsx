@@ -11,7 +11,9 @@ interface Project {
   technologies: string[];
   githubUrl: string;
   liveUrl?: string;
-  image: string;
+  image: string; // Kept for modal compatibility
+  images: string[]; // Added for multiple images
+  status: "Ongoing" | "Completed"; // Added status field
 }
 
 const projects: Project[] = [
@@ -22,16 +24,15 @@ const projects: Project[] = [
       "A powerful platform for remote teams to manage projects, tasks, and files with Smart Workload Balancer.",
     fullDescription:
       "A comprehensive remote work collaboration platform featuring intelligent task distribution, real-time project management, and file sharing capabilities. The Smart Workload Balancer optimizes task assignments based on workload analysis, deadline prioritization, and task complexity assessment, ensuring efficient team productivity and balanced work distribution.",
-    technologies: [
-      "React",
-      "Node.js",
-      "MongoDB",
-      "Express",
-      "Socket.io",
-      "JWT",
-    ],
+    technologies: ["React", "Node.js", "MongoDB", "Express", "Socket.io", "JWT"],
     githubUrl: "https://github.com/manamendraJN/Collab-Hub",
     image: "🏢",
+    images: [
+      "/client/components/project-images/project1-img1.png",
+      "/client/components/project-images/project1-img2.png",
+      "/client/components/project-images/project1-img3.png",
+    ],
+    status: "Completed",
   },
   {
     id: "2",
@@ -43,6 +44,11 @@ const projects: Project[] = [
     technologies: ["React", "Spring Boot", "MySQL", "WebRTC", "OAuth 2.0"],
     githubUrl: "https://github.com/manamendraJN/SkillSphere",
     image: "🎓",
+    images: [
+      "/client/components/project-images/project2-img1.png",
+      "/client/components/project-images/project2-img2.png",
+    ],
+    status: "Completed",
   },
   {
     id: "3",
@@ -54,6 +60,12 @@ const projects: Project[] = [
     technologies: ["Java", "Spring Boot", "PostgreSQL", "Angular", "Docker"],
     githubUrl: "https://github.com/Shiranakther/Warehouse_Management_Syatem",
     image: "📦",
+    images: [
+      "/client/components/project-images/project3-img1.png",
+      "/client/components/project-images/project3-img2.png",
+      "/client/components/project-images/project3-img3.png",
+    ],
+    status: "Completed",
   },
   {
     id: "4",
@@ -65,6 +77,11 @@ const projects: Project[] = [
     technologies: ["Kotlin", "SQLite", "Android SDK", "Material Design"],
     githubUrl: "https://github.com/manamendraJN/Notes_App_with_SQLite",
     image: "📝",
+    images: [
+      "/client/components/project-images/project4-img1.jpg",
+      "/client/components/project-images/project4-img2.jpg",
+    ],
+    status: "Completed",
   },
   {
     id: "5",
@@ -76,6 +93,12 @@ const projects: Project[] = [
     technologies: ["React", "Node.js", "MongoDB", "Express", "JWT", "Mapbox"],
     githubUrl: "https://github.com/manamendraJN/mern-estate",
     image: "🏠",
+    images: [
+      "https://via.placeholder.com/600x400?text=MERN+Estate+1",
+      "https://via.placeholder.com/600x400?text=MERN+Estate+2",
+      "https://via.placeholder.com/600x400?text=MERN+Estate+3",
+    ],
+    status: "Ongoing",
   },
 ];
 
@@ -114,7 +137,23 @@ export function ProjectsSection() {
               className="project-card bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 cursor-pointer"
               onClick={() => setSelectedProject(project)}
             >
-              <div className="text-6xl mb-6 text-center">{project.image}</div>
+              <div className="flex justify-between items-center mb-4">
+                <img
+                  src={project.images[0]}
+                  alt={`${project.title} preview`}
+                  className="w-12 h-12 object-contain rounded-md"
+                  loading="lazy"
+                />
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-medium tracking-wide uppercase ${
+                    project.status === "Ongoing"
+                      ? "bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400"
+                      : "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400"
+                  }`}
+                >
+                  {project.status}
+                </span>
+              </div>
               <h3 className="text-xl font-bold text-white mb-3">
                 {project.title}
               </h3>
@@ -167,6 +206,15 @@ export function ProjectsSection() {
                     <h3 className="text-2xl font-bold text-navy mb-2">
                       {selectedProject.title}
                     </h3>
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-medium tracking-wide uppercase ${
+                        selectedProject.status === "Ongoing"
+                          ? "bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400"
+                          : "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400"
+                      }`}
+                    >
+                      {selectedProject.status}
+                    </span>
                   </div>
                   <button
                     onClick={() => setSelectedProject(null)}
