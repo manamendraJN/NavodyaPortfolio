@@ -1,7 +1,27 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ChevronLeft, ChevronRight, X } from "lucide-react";
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+const childVariants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+};
 
 interface Project {
   id: string;
@@ -11,9 +31,9 @@ interface Project {
   technologies: string[];
   githubUrl: string;
   liveUrl?: string;
-  image: string; // Kept for modal compatibility
-  images: string[]; // Added for multiple images
-  status: "Ongoing" | "Completed"; // Added status field
+  image: string;
+  images: string[];
+  status: "Ongoing" | "Completed";
 }
 
 const projects: Project[] = [
@@ -104,6 +124,19 @@ const projects: Project[] = [
 
 export function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? (selectedProject?.images.length || 1) - 1 : prev - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === (selectedProject?.images.length || 1) - 1 ? 0 : prev + 1
+    );
+  };
 
   return (
     <section
@@ -126,18 +159,24 @@ export function ProjectsSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {projects.map((project) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              variants={cardVariants}
               className="project-card bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 cursor-pointer"
-              onClick={() => setSelectedProject(project)}
+              onClick={() => {
+                setSelectedProject(project);
+                setCurrentImageIndex(0);
+              }}
             >
-              <div className="flex justify-between items-center mb-4">
+              <motion.div variants={childVariants} className="flex justify-between items-center mb-4">
                 <img
                   src={project.images[0]}
                   alt={`${project.title} preview`}
@@ -153,14 +192,20 @@ export function ProjectsSection() {
                 >
                   {project.status}
                 </span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">
+              </motion.div>
+              <motion.h3
+                variants={childVariants}
+                className="text-xl font-bold text-white mb-3"
+              >
                 {project.title}
-              </h3>
-              <p className="text-white/70 mb-4 line-clamp-3">
+              </motion.h3>
+              <motion.p
+                variants={childVariants}
+                className="text-white/70 mb-4 line-clamp-3"
+              >
                 {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
+              </motion.p>
+              <motion.div variants={childVariants} className="flex flex-wrap gap-2 mb-4">
                 {project.technologies.slice(0, 3).map((tech) => (
                   <span
                     key={tech}
@@ -174,16 +219,18 @@ export function ProjectsSection() {
                     +{project.technologies.length - 3}
                   </span>
                 )}
-              </div>
-              <Button
-                variant="outline"
-                className="w-full border-teal text-teal hover:bg-teal hover:text-white"
-              >
-                View Details
-              </Button>
+              </motion.div>
+              <motion.div variants={childVariants}>
+                <Button
+                  variant="outline"
+                  className="w-full border-teal text-teal hover:bg-teal hover:text-white"
+                >
+                  View Details
+                </Button>
+              </motion.div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Project Modal */}
         {selectedProject && (
@@ -200,9 +247,56 @@ export function ProjectsSection() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-8">
+                <div className="relative mb-6">
+                  <div className="relative w-full aspect-[3/2] max-h-96 rounded-lg overflow-hidden">
+                    {selectedProject.images.map((image, index) => (
+                      <img
+                        key={index}
+                        src={image}
+                        alt={`${selectedProject.title} screenshot ${index + 1}`}
+                        className={`w-full h-full object-contain transition-opacity duration-300 ${
+                          index === currentImageIndex ? "opacity-100" : "opacity-0 absolute top-0"
+                        }`}
+                        loading="lazy"
+                      />
+                    ))}
+                    {selectedProject.images.length > 1 && (
+                      <>
+                        <button
+                          onClick={handlePrevImage}
+                          className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800/70 text-white p-2 rounded-full hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                          aria-label="Previous image"
+                        >
+                          <ChevronLeft size={24} />
+                        </button>
+                        <button
+                          onClick={handleNextImage}
+                          className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800/70 text-white p-2 rounded-full hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                          aria-label="Next image"
+                        >
+                          <ChevronRight size={24} />
+                        </button>
+                        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
+                          {selectedProject.images.map((_, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setCurrentImageIndex(index)}
+                              className={`w-2 h-2 rounded-full ${
+                                index === currentImageIndex
+                                  ? "bg-teal-500"
+                                  : "bg-gray-400"
+                              }`}
+                              aria-label={`Go to image ${index + 1}`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    <div className="text-6xl mb-4">{selectedProject.image}</div>
                     <h3 className="text-2xl font-bold text-navy mb-2">
                       {selectedProject.title}
                     </h3>
