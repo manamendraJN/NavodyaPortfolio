@@ -1,28 +1,42 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Phone } from "lucide-react";
 
 export function ContactSection() {
   const socialLinks = [
     {
+      name: "Email",
+      url: "mailto:navodyamanamendra19@gmail.com",
+      icon: Mail,
+      color: "hover:text-[hsl(172,85%,32%)]",
+      description: "Send direct email",
+    },
+    {
       name: "GitHub",
       url: "https://github.com/manamendraJN",
       icon: Github,
-      color: "hover:text-gray-900 dark:hover:text-white",
+      color: "hover:text-[hsl(172,85%,32%)]",
       description: "View code repositories and contributions",
     },
     {
       name: "LinkedIn",
       url: "https://www.linkedin.com/in/navodya-manamendra-35a309248/",
       icon: Linkedin,
-      color: "hover:text-blue-600",
+      color: "hover:text-[hsl(172,85%,32%)]",
       description: "Connect on professional network",
     },
     {
-      name: "Email",
-      url: "mailto:navodyamanamendra19@gmail.com",
-      icon: Mail,
-      color: "hover:text-red-500",
-      description: "Send direct email",
+      name: "WhatsApp",
+      url: "https://wa.me/94764390987",
+      icon: Phone,
+      color: "hover:text-[hsl(172,85%,32%)]",
+      description: "Contact via WhatsApp",
+    },
+    {
+      name: "Mobile",
+      url: "tel:+94768685811",
+      icon: Phone,
+      color: "hover:text-[hsl(172,85%,32%)]",
+      description: "Call directly",
     },
   ];
 
@@ -54,7 +68,7 @@ export function ContactSection() {
         </motion.div>
 
         <div className="grid lg:grid-cols-1 gap-12 max-w-6xl mx-auto">
-          {/* Contact Info & Social Links */}
+          {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: 0 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -84,14 +98,18 @@ export function ContactSection() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`transition-all duration-300 ${link.color}`}
+                      className={`transition-all duration-300 ${link.color} hover:underline`}
                       aria-label={`${link.name} - ${link.description}`}
                     >
                       {link.name === "Email"
                         ? "navodyamanamendra19@gmail.com"
                         : link.name === "GitHub"
                         ? "github.com/manamendraJN"
-                        : "Professional LinkedIn Profile"}
+                        : link.name === "LinkedIn"
+                        ? "Professional LinkedIn Profile"
+                        : link.name === "WhatsApp"
+                        ? "WhatsApp Chat (+94 76 439 0987)"
+                        : "Call Now (+94 76 868 5811)"}
                     </motion.a>
                   </div>
                 ))}
