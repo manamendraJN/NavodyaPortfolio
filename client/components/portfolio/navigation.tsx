@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants, useReducedMotion } from "framer-motion";
-import { Menu, X, Home, User, Layers, Code, CheckSquare, Mail } from "lucide-react";
+import { Menu, X, Home, User, Layers, Code, CheckSquare, Mail, Settings } from "lucide-react";
+import { ThemeToggle } from "../ui/theme-toggle";
+import { MouseTrailToggle } from "../ui/mouse-trail-toggle";
 
 interface NavItem {
   id: string;
   label: string;
   href: string;
   icon: JSX.Element;
+}
+
+interface NavigationProps {
+  isMouseTrailEnabled: boolean;
+  toggleMouseTrail: () => void;
 }
 
 const navItems: NavItem[] = [
@@ -18,10 +25,11 @@ const navItems: NavItem[] = [
   { id: "contact", label: "Contact", href: "#contact", icon: <Mail size={16} /> },
 ];
 
-export function Navigation() {
+export function Navigation({ isMouseTrailEnabled, toggleMouseTrail }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -34,13 +42,11 @@ export function Navigation() {
 
       const scrollPosition = window.scrollY + 100;
 
-      // Set home as active if near the top of the page
       if (scrollPosition < window.innerHeight) {
         setActiveSection("home");
         return;
       }
 
-      // Check other sections
       for (const sectionId of navItems.map((item) => item.id)) {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -55,12 +61,13 @@ export function Navigation() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initialize on mount
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (href: string) => {
     setIsMobileMenuOpen(false);
+    setIsSettingsOpen(false);
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
@@ -84,6 +91,12 @@ export function Navigation() {
     initial: { x: "100%", opacity: 0 },
     animate: { x: 0, opacity: 1, transition: { duration: shouldReduceMotion ? 0 : 0.3 } },
     exit: { x: "100%", opacity: 0, transition: { duration: shouldReduceMotion ? 0 : 0.3 } },
+  };
+
+  const settingsMenuVariants: Variants = {
+    initial: { opacity: 0, y: -10 },
+    animate: { opacity: 1, y: 0, transition: { duration: shouldReduceMotion ? 0 : 0.2 } },
+    exit: { opacity: 0, y: -10, transition: { duration: shouldReduceMotion ? 0 : 0.2 } },
   };
 
   return (
@@ -135,6 +148,44 @@ export function Navigation() {
                   </span>
                 </motion.button>
               ))}
+              <div className="relative">
+                <motion.button
+                  onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                  className={`relative group px-4 py-2 rounded-lg font-medium text-sm transition-all before:absolute before:inset-0 before:rounded-lg before:opacity-0 before:transition-opacity before:bg-[hsl(172,85%,35%)]/10 group-hover:before:opacity-100 ${
+                    isSettingsOpen
+                      ? "text-[hsl(172,85%,35%)] dark:text-[hsl(172,85%,45%)]"
+                      : "text-[hsl(213,50%,16%)] dark:text-gray-300 hover:text-[hsl(172,85%,35%)] dark:hover:text-[hsl(172,85%,45%)]"
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="flex items-center space-x-2">
+                    <Settings size={16} />
+                    <span>Settings</span>
+                  </span>
+                </motion.button>
+                <AnimatePresence>
+                  {isSettingsOpen && (
+                    <motion.div
+                      variants={settingsMenuVariants}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                      className="absolute right-0 mt-2 w-48 bg-white/90 dark:bg-[hsl(213,50%,12%)]/90 backdrop-blur-md border border-[hsl(172,85%,35%)]/20 dark:border-[hsl(172,85%,45%)]/30 shadow-lg rounded-lg py-2"
+                    >
+                      <div className="px-4 py-2">
+                        <ThemeToggle />
+                      </div>
+                      <div className="px-9 py-2">
+                        <MouseTrailToggle
+                          isMouseTrailEnabled={isMouseTrailEnabled}
+                          toggleMouseTrail={toggleMouseTrail}
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
             <motion.button
@@ -183,6 +234,23 @@ export function Navigation() {
                     </span>
                   </motion.button>
                 ))}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0, transition: { delay: navItems.length * 0.1 } }}
+                  className="px-4 py-3"
+                >
+                  <div className="flex items-center space-x-2 text-[hsl(213,50%,16%)] dark:text-gray-300">
+                    <Settings size={16} />
+                    <span>Settings</span>
+                  </div>
+                  <div className="mt-2 pl-6 space-y-2">
+                    <ThemeToggle />
+                    <MouseTrailToggle
+                      isMouseTrailEnabled={isMouseTrailEnabled}
+                      toggleMouseTrail={toggleMouseTrail}
+                    />
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           )}
