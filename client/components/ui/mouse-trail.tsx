@@ -37,6 +37,7 @@ export function MouseTrail() {
 
       function bindEvents() {
         element.addEventListener("mousemove", onMouseMove);
+        element.addEventListener("click", onClick);
         window.addEventListener("resize", onWindowResize);
       }
 
@@ -51,8 +52,16 @@ export function MouseTrail() {
         addParticle(cursor.x, cursor.y);
       }
 
-      function addParticle(x: number, y: number) {
-        particles.push(new Particle(x, y));
+      function onClick(e: MouseEvent) {
+        const x = hasWrapperEl ? e.clientX - element.getBoundingClientRect().left : e.clientX;
+        const y = hasWrapperEl ? e.clientY - element.getBoundingClientRect().top : e.clientY;
+        for (let i = 0; i < 10; i++) {
+          addParticle(x, y, true);
+        }
+      }
+
+      function addParticle(x: number, y: number, isClick: boolean = false) {
+        particles.push(new Particle(x, y, isClick));
       }
 
       function updateParticles() {
@@ -75,24 +84,25 @@ export function MouseTrail() {
         canvas.remove();
         cancelAnimationFrame(animationFrame);
         element.removeEventListener("mousemove", onMouseMove);
+        element.removeEventListener("click", onClick);
         window.removeEventListener("resize", onWindowResize);
       }
 
-      function Particle(x: number, y: number) {
+      function Particle(x: number, y: number, isClick: boolean = false) {
         this.position = { x, y };
         this.velocity = {
-          x: (Math.random() - 0.5) * 1,
-          y: -Math.random() * 0.7 - 0.5
+          x: (Math.random() - 0.5) * (isClick ? 4 : 1),
+          y: (Math.random() - 0.5) * (isClick ? 4 : 0.7) - (isClick ? 0 : 0.5)
         };
-        this.radius = Math.random() * 6 + 4;
+        this.radius = isClick ? Math.random() * 8 + 6 : Math.random() * 6 + 4;
         this.opacity = 1;
-        this.lifeSpan = 100;
+        this.lifeSpan = isClick ? 150 : 100;
 
         this.update = function (ctx: CanvasRenderingContext2D) {
           this.position.x += this.velocity.x;
           this.position.y += this.velocity.y;
           this.lifeSpan--;
-          this.opacity = this.lifeSpan / 100;
+          this.opacity = this.lifeSpan / (isClick ? 150 : 100);
 
           const gradient = ctx.createRadialGradient(
             this.position.x,
@@ -103,7 +113,7 @@ export function MouseTrail() {
             this.radius
           );
           gradient.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`);
-          gradient.addColorStop(0.5, `rgba(173, 216, 230, ${this.opacity * 0.6})`);
+          gradient.addColorStop(0.5, `rgba(135, 206, 235, ${this.opacity * (isClick ? 0.8 : 0.6)})`);
           gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
 
           ctx.beginPath();
