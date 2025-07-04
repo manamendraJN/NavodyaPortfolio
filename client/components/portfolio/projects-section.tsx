@@ -116,7 +116,6 @@ const projects: Project[] = [
     githubUrl: "https://github.com/manamendraJN/mern-estate",
     images: [
       "https://via.placeholder.com/600x400?text=MERN+Estate+1",
-
     ],
     status: "Ongoing",
   },
@@ -182,29 +181,31 @@ export function ProjectsSection() {
                 setIsSliderExpanded(false);
               }}
             >
-              <motion.div variants={childVariants} className="flex justify-between items-center mb-4">
+              <motion.div variants={childVariants} className="mb-4">
                 <img
-                  src={project.images[0]}
+                  src={project.images[0] || "https://via.placeholder.com/600x400?text=No+Image"}
                   alt={`${project.title} preview`}
-                  className="w-12 h-12 object-contain rounded-md"
+                  className="w-full h-48 object-cover rounded-lg"
                   loading="lazy"
                 />
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium tracking-wide uppercase ${
-                    project.status === "Ongoing"
-                      ? "bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400"
-                      : "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400"
-                  }`}
-                >
-                  {project.status}
-                </span>
+                <div className="flex justify-between items-center mt-2">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-medium tracking-wide uppercase ${
+                      project.status === "Ongoing"
+                        ? "bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400"
+                        : "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400"
+                    }`}
+                  >
+                    {project.status}
+                  </span>
+                </div>
               </motion.div>
 
               <motion.h3
                 variants={childVariants}
                 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 line-clamp-1"
               >
-                {project.title}
+vae                {project.title}
               </motion.h3>
 
               <motion.p
@@ -258,7 +259,6 @@ export function ProjectsSection() {
                 className="relative w-full h-full flex items-center justify-center"
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Expand Button (Fixed, Top-Right) */}
                 <button
                   onClick={handleToggleExpand}
                   className="fixed top-2 right-2 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 z-10"
@@ -266,14 +266,13 @@ export function ProjectsSection() {
                 >
                   <Minimize size={24} />
                 </button>
-                {/* Full-Screen Slider */}
-                <div className="relative w-full max-w-[95vw] max-h-[90vh] overflow-y-auto rounded-lg">
+                <div className="relative w-full max-w-[95vw] max-h-[90vh] overflow-hidden rounded-lg">
                   {selectedProject.images.map((image, index) => (
                     <img
                       key={index}
-                      src={image}
+                      src={image || "https://via.placeholder.com/600x400?text=No+Image"}
                       alt={`${selectedProject.title} screenshot ${index + 1}`}
-                      className={`w-full h-auto object-contain transition-opacity duration-300 cursor-pointer ${
+                      className={`w-full h-auto max-h-[90vh] object-contain transition-opacity duration-300 cursor-pointer ${
                         index === currentImageIndex ? "opacity-100" : "opacity-0 absolute top-0"
                       }`}
                       onClick={handleToggleExpand}
@@ -320,10 +319,9 @@ export function ProjectsSection() {
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                className="relative bg-white dark:bg-slate-800 rounded-3xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+                className="relative bg-white dark:bg-slate-800 rounded-3xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Close Button (Top-Right, Modal) */}
                 <button
                   onClick={() => setSelectedProject(null)}
                   className="absolute top-4 right-4 bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 z-10"
@@ -332,15 +330,14 @@ export function ProjectsSection() {
                   <X size={24} />
                 </button>
                 <div className="p-6 sm:p-8">
-                  {/* Image Slider */}
                   <div className="relative mb-6">
-                    <div className="relative w-full aspect-[3/2] max-h-96 rounded-lg overflow-hidden">
+                    <div className="relative w-full aspect-[16/9] max-h-96 rounded-lg overflow-hidden">
                       {selectedProject.images.map((image, index) => (
                         <img
                           key={index}
-                          src={image}
+                          src={image || "https://via.placeholder.com/600x400?text=No+Image"}
                           alt={`${selectedProject.title} screenshot ${index + 1}`}
-                          className={`w-full h-full object-contain transition-opacity duration-300 cursor-pointer ${
+                          className={`w-full h-full object-cover transition-opacity duration-300 cursor-pointer ${
                             index === currentImageIndex ? "opacity-100" : "opacity-0 absolute top-0"
                           }`}
                           onClick={handleToggleExpand}
@@ -348,14 +345,6 @@ export function ProjectsSection() {
                           aria-label="Click to expand image"
                         />
                       ))}
-                      {/* Expand Button (Top-Left, Slider) */}
-                      <button
-                        onClick={handleToggleExpand}
-                        className="absolute  bg-gray-800/70 dark:bg-gray-200/70 text-white dark:text-gray-800 p-2 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 z-10"
-                        aria-label="Expand image"
-                      >
-                        <Expand size={24} />
-                      </button>
                     </div>
                     {selectedProject.images.length > 1 && (
                       <>
@@ -391,7 +380,6 @@ export function ProjectsSection() {
                     )}
                   </div>
 
-                  {/* Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div>
                       <div className="flex items-center gap-4 mb-4">
@@ -411,12 +399,10 @@ export function ProjectsSection() {
                     </div>
                   </div>
 
-                  {/* Description */}
                   <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-6">
                     {selectedProject.fullDescription}
                   </p>
 
-                  {/* Technologies */}
                   <div className="mb-6">
                     <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-2">
                       Technologies Used:
@@ -433,7 +419,6 @@ export function ProjectsSection() {
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
                   <div className="flex flex-wrap gap-4">
                     <Button
                       asChild
