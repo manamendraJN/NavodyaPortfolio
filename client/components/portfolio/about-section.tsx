@@ -6,7 +6,7 @@ export function AboutSection() {
     {
       icon: Code,
       title: "Frontend Development",
-      skills: ["React", "Tailwind CSS", "JavaScript", "HTML5", "CSS3"],
+      skills: ["React", "Tailwind CSS", "JavaScript", "TypeScript", "HTML5", "CSS3"],
       color: "text-[hsl(172,85%,35%)] dark:text-[hsl(172,85%,45%)]",
     },
     {
@@ -44,12 +44,7 @@ export function AboutSection() {
           viewport={{ once: true }}
           className="max-w-6xl mx-auto"
         >
-          <h2
-            id="about-heading"
-            className="text-4xl md:text-5xl font-bold text-center text-[hsl(213,50%,16%)] dark:text-[hsl(150,3%,96%)] mb-16"
-          >
-            About Me
-          </h2>
+
 
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Bio Section */}
@@ -66,7 +61,12 @@ export function AboutSection() {
                 transition={{ duration: 1, delay: 0.3 }}
                 viewport={{ once: true }}
                 className="text-lg leading-relaxed text-[hsl(213,50%,16%)] dark:text-[hsl(150,3%,96%)]"
-              >
+              >          <h2
+            id="about-heading"
+            className="text-2xl md:text-5xl font-bold text-center text-[hsl(213,50%,16%)] dark:text-[hsl(150,3%,96%)] mb-16"
+          >
+            About Me
+          </h2>
                 <p className="mb-6">
                   I'm an enthusiastic{" "}
                   <span className="text-[hsl(172,85%,32%)] font-semibold">
@@ -117,7 +117,7 @@ export function AboutSection() {
               </motion.div>
 
               {/* Stats */}
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
@@ -150,7 +150,7 @@ export function AboutSection() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
 
             {/* Skill Showcase */}
