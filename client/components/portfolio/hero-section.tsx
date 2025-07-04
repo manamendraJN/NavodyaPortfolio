@@ -50,51 +50,55 @@ export function HeroSection() {
         </Canvas>
       </div>
 
-      {/* Background geometric patterns with reduced motion */}
+      {/* Subtle Background Geometric Patterns */}
       <div className="absolute inset-0 opacity-10" aria-hidden="true">
         <motion.div
-          className="absolute top-20 left-20 w-32 h-32 border border-[hsl(172,85%,32%)] rotate-45"
+          className="absolute top-20 left-20 w-28 h-28 border border-[hsl(210,18%,82%)] rotate-45"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 1 }}
+          animate={{ opacity: 0.8 }}
+          transition={{ duration: 1.5, delay: 0.8 }}
         />
         <motion.div
-          className="absolute bottom-40 right-20 w-24 h-24 border border-[hsl(172,85%,32%)] rounded-full"
+          className="absolute bottom-40 right-20 w-20 h-20 border border-[hsl(210,18%,82%)] rounded-full"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 1.5 }}
+          animate={{ opacity: 0.8 }}
+          transition={{ duration: 1.5, delay: 1.2 }}
         />
         <motion.div
-          className="absolute top-1/2 left-10 w-16 h-16 bg-[hsl(172,85%,32%)]/20 rotate-12"
+          className="absolute top-1/2 left-10 w-14 h-14 bg-[hsl(172,85%,32%)]/10 rotate-12"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 2 }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-1/3 w-20 h-20 border border-[hsl(210,18%,82%)] rotate-45"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 2.5 }}
+          animate={{ opacity: 0.8 }}
+          transition={{ duration: 1.5, delay: 1.6 }}
         />
       </div>
 
-      <div className="container relative z-10 px-4">
-        <div className="text-center max-w-4xl mx-auto">
-          {/* Professional headshot placeholder - optimized for Fitts's Law */}
+      <div className="container relative z-10 px-6">
+        <div className="text-center max-w-3xl mx-auto">
+          {/* Professional Headshot with Slow Up-and-Down Animation */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{
+              opacity: 1,
+              y: [0, -10, 0],
+            }}
+            transition={{
+              opacity: { duration: 0.8, ease: "easeOut" },
+              y: {
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut",
+              },
+            }}
+            className="mb-10"
           >
-            <div
-              className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-[hsl(172,85%,32%)] to-[hsl(213,50%,16%)] border-4 border-[hsl(210,18%,82%)] shadow-2xl flex items-center justify-center text-white text-4xl font-bold focus:outline-none focus:ring-4 focus:ring-[hsl(172,85%,32%)] focus:ring-opacity-50"
+            <img
+              src="/client/components/portfolio/dp/IMG_20250627_172506.jpg"
+              alt="Navodya Manamendra's profile picture"
+              className="w-64 h-64 mx-auto rounded-full border-2 border-[hsl(210,18%,82%)] shadow-md object-cover focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,32%)] focus:ring-opacity-50"
               role="img"
-              aria-label="Navodya Manamendra's profile picture placeholder"
               tabIndex={0}
-            >
-              NM
-            </div>
+            />
           </motion.div>
 
           {/* Typing animation for main heading - WCAG compliant */}
