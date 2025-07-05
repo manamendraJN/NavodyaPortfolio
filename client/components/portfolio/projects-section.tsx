@@ -13,6 +13,7 @@ import project3img2 from "@/components/portfolio/project-images/project3-img2.pn
 import project3img3 from "@/components/portfolio/project-images/project3-img3.png";
 import project4img1 from "@/components/portfolio/project-images/project4-img1.jpg";
 import project4img2 from "@/components/portfolio/project-images/project4-img2.jpg";
+import project6img1 from "@/components/portfolio/project-images/project6-img1.jpg";
 
 const containerVariants = {
   hidden: {},
@@ -117,6 +118,31 @@ const projects: Project[] = [
     ],
     status: "Completed",
   },
+    {
+    id: "6",
+    title: "Personal Portfolio Website",
+    description:
+      "A modern portfolio showcasing my projects, skills, and achievements with a focus on interactivity and accessibility.",
+    fullDescription:
+      "A dynamic personal portfolio website built to showcase my professional journey, projects, and technical skills. Features include a responsive design with dark mode, smooth animations, interactive 3D visuals, and accessibility optimizations. The site integrates a variety of modern web technologies to provide an engaging user experience and highlight my expertise as a full-stack developer.",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "React Three Fiber",
+      "Drei",
+      "Lucide React",
+      "React SVG"
+    ],
+    githubUrl: "https://github.com/manamendraJN/portfolio",
+    liveUrl: "https://manamendraJN.github.io/portfolio",
+    images: [
+      "https://via.placeholder.com/600x400?text=Portfolio+1",
+      "https://via.placeholder.com/600x400?text=Portfolio+2",
+    ],
+    status: "Completed",
+  },
   {
     id: "5",
     title: "MERN-Estate",
@@ -127,7 +153,7 @@ const projects: Project[] = [
     technologies: ["React", "Node.js", "MongoDB", "Express", "JWT", "Mapbox"],
     githubUrl: "https://github.com/manamendraJN/mern-estate",
     images: [
-      "https://via.placeholder.com/600x400?text=MERN+Estate+1",
+      project6img1,
     ],
     status: "Ongoing",
   },
