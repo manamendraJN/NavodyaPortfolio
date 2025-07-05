@@ -8,6 +8,7 @@ import project1img3 from "@/components/portfolio/project-images/project1-img3.pn
 import project1img4 from "@/components/portfolio/project-images/project1-img4.png";
 import project2img1 from "@/components/portfolio/project-images/project2-img1.png";
 import project2img2 from "@/components/portfolio/project-images/project2-img2.png";
+import project2img3 from "@/components/portfolio/project-images/project2-img3.png";
 import project3img1 from "@/components/portfolio/project-images/project3-img1.png";
 import project3img2 from "@/components/portfolio/project-images/project3-img2.png";
 import project3img3 from "@/components/portfolio/project-images/project3-img3.png";
@@ -86,6 +87,7 @@ const projects: Project[] = [
     images: [
       project2img1,
       project2img2,
+      project2img3
     ],
     status: "Completed",
   },
