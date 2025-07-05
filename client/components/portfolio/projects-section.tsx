@@ -14,6 +14,8 @@ import project3img3 from "@/components/portfolio/project-images/project3-img3.pn
 import project4img1 from "@/components/portfolio/project-images/project4-img1.jpg";
 import project4img2 from "@/components/portfolio/project-images/project4-img2.jpg";
 import project6img1 from "@/components/portfolio/project-images/project6-img1.png";
+import project3img4 from "@/components/portfolio/project-images/project3-img4.png";
+import project3img5 from "@/components/portfolio/project-images/project3-img5.png";
 
 const containerVariants = {
   hidden: {},
@@ -100,6 +102,8 @@ const projects: Project[] = [
     project3img1,
     project3img2,
     project3img3,
+    project3img4,
+    project3img5
   ],
   status: "Completed",
 },
