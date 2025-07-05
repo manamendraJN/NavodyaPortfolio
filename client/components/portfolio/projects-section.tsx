@@ -76,7 +76,7 @@ const projects: Project[] = [
     id: "2",
     title: "SkillSphere",
     description:
-      "Interactive skill-sharing platform with structured learning plans and community-driven Q&A forum.",
+      "Interactive skill-sharing platform with structured learning plans, community-driven Q&A forum, and mentorship support.",
     fullDescription:
       "An innovative platform that connects learners and instructors across various skills including coding, photography, and creative arts. Features include personalized learning paths, real-time progress tracking, interactive video sessions, community forums, and achievement systems to gamify the learning experience.",
     technologies: ["React", "Spring Boot", "MySQL", "WebRTC", "OAuth 2.0"],
