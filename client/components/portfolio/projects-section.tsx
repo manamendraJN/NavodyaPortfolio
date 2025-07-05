@@ -122,7 +122,7 @@ const projects: Project[] = [
     id: "6",
     title: "Personal Portfolio Website",
     description:
-      "A modern portfolio showcasing my projects, skills, and achievements with a focus on interactivity and accessibility.",
+      "Portfolio showcasing my projects, skills, and achievements with a focus on interactivity & accessibility.",
     fullDescription:
       "A dynamic personal portfolio website built to showcase my professional journey, projects, and technical skills. Features include a responsive design with dark mode, smooth animations, interactive 3D visuals, and accessibility optimizations. The site integrates a variety of modern web technologies to provide an engaging user experience and highlight my expertise as a full-stack developer.",
     technologies: [
