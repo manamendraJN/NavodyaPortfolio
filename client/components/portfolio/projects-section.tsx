@@ -138,8 +138,7 @@ const projects: Project[] = [
     githubUrl: "https://github.com/manamendraJN/portfolio",
     liveUrl: "https://manamendraJN.github.io/portfolio",
     images: [
-      "https://via.placeholder.com/600x400?text=Portfolio+1",
-      "https://via.placeholder.com/600x400?text=Portfolio+2",
+      project6img1,
     ],
     status: "Completed",
   },
@@ -153,7 +152,8 @@ const projects: Project[] = [
     technologies: ["React", "Node.js", "MongoDB", "Express", "JWT", "Mapbox"],
     githubUrl: "https://github.com/manamendraJN/mern-estate",
     images: [
-      project6img1,
+      "https://via.placeholder.com/600x400?text=MERN+Estate+1"
+      ,
     ],
     status: "Ongoing",
   },
