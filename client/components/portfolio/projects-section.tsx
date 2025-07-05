@@ -13,7 +13,7 @@ import project3img2 from "@/components/portfolio/project-images/project3-img2.pn
 import project3img3 from "@/components/portfolio/project-images/project3-img3.png";
 import project4img1 from "@/components/portfolio/project-images/project4-img1.jpg";
 import project4img2 from "@/components/portfolio/project-images/project4-img2.jpg";
-import project6img1 from "@/components/portfolio/project-images/project6-img1.jpg";
+import project6img1 from "@/components/portfolio/project-images/project6-img1.png";
 
 const containerVariants = {
   hidden: {},
