@@ -135,7 +135,7 @@ const projects: Project[] = [
       "Lucide React",
       "React SVG"
     ],
-    githubUrl: "https://github.com/manamendraJN/portfolio",
+    githubUrl: "https://manamendrajn.github.io/NavodyaPortfolio/",
     liveUrl: "https://manamendraJN.github.io/portfolio",
     images: [
       project6img1,
