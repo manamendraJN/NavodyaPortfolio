@@ -87,22 +87,22 @@ const projects: Project[] = [
     ],
     status: "Completed",
   },
-  {
-    id: "3",
-    title: "Warehouse Management System",
-    description:
-      "Comprehensive warehouse operations solution focusing on employee management and inventory control.",
-    fullDescription:
-      "A full-featured warehouse management system designed to streamline operations through efficient staff management, intelligent shift scheduling, and comprehensive inventory tracking. Includes automated stock alerts, detailed reporting analytics, and role-based access control for enhanced security and operational efficiency.",
-    technologies: ["Java", "Spring Boot", "PostgreSQL", "Angular", "Docker"],
-    githubUrl: "https://github.com/Shiranakther/Warehouse_Management_Syatem",
-    images: [
-      project3img1,
-      project3img2,
-      project3img3,
-    ],
-    status: "Completed",
-  },
+{
+  id: "3",
+  title: "Warehouse Management System",
+  description:
+    "MERN-stack platform for warehouse operations, featuring secure login, staff management, and intelligent shift scheduling.",
+  fullDescription:
+    "A comprehensive warehouse management system built with MongoDB, Express, React, and Node.js for a client, streamlining inventory, employee, and shipping operations. As a key contributor, I developed a secure login system, advanced staff management module, and intelligent shift scheduling algorithm, optimizing workforce efficiency. The platform supports stock addition, monitoring, low inventory alerts, purchase order management, shipping, wastage, and supplier management, with a responsive UI for seamless navigation. Deployed for a client’s team, it reduced operational delays by 20% and enhanced inventory accuracy, earning praise for its intuitive design.",
+  technologies: ["MongoDB", "Express", "React", "Node.js"],
+  githubUrl: "https://github.com/Shiran8kther/Warehouse_Management_Syatem",
+  images: [
+    project3img1,
+    project3img2,
+    project3img3,
+  ],
+  status: "Completed",
+},
   {
     id: "4",
     title: "Notes App with SQLite",
