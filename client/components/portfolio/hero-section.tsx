@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { Stars, OrbitControls } from "@react-three/drei";
 import { useRef, useEffect, useState } from "react";
 import dpImage from "@/components/portfolio/dp/Untitled-Pica.png";
+import CV from "@/components/CV/Navodya_Manamendra_CV.pdf";
 
 export function HeroSection() {
   const scrollToSection = (id: string) => {
@@ -168,7 +169,7 @@ export function HeroSection() {
             <Button
               className="bg-[hsl(172,85%,35%)] hover:bg-[hsl(172,85%,30%)] text-white text-sm sm:text-base font-medium px-5 sm:px-6 py-4 sm:py-5 rounded-md shadow-sm hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[hsl(172,85%,35%)] focus:ring-opacity-50 min-w-[160px] sm:min-w-[180px]"
             >
-              <a href="/client/components/CV/Navodya_Manamendra_CV.pdf" download="NavodyaManamendra_CV.pdf">
+              <a href={CV} download="NavodyaManamendra_CV.pdf">
                 Download My CV
               </a>
             </Button>

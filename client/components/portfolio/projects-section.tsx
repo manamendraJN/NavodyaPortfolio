@@ -2,6 +2,17 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { ExternalLink, Github, ChevronLeft, ChevronRight, X, Expand, Minimize } from "lucide-react";
+import project1img1 from "@/components/portfolio/project-images/project1-img1.png";
+import project1img2 from "@/components/portfolio/project-images/project1-img2.png";
+import project1img3 from "@/components/portfolio/project-images/project1-img3.png";
+import project1img4 from "@/components/portfolio/project-images/project1-img4.png";
+import project2img1 from "@/components/portfolio/project-images/project2-img1.png";
+import project2img2 from "@/components/portfolio/project-images/project2-img2.png";
+import project3img1 from "@/components/portfolio/project-images/project3-img1.png";
+import project3img2 from "@/components/portfolio/project-images/project3-img2.png";
+import project3img3 from "@/components/portfolio/project-images/project3-img3.png";
+import project4img1 from "@/components/portfolio/project-images/project4-img1.jpg";
+import project4img2 from "@/components/portfolio/project-images/project4-img2.jpg";
 
 const containerVariants = {
   hidden: {},
@@ -53,10 +64,10 @@ const projects: Project[] = [
     ],
     githubUrl: "https://github.com/manamendraJN/Collab-Hub",
     images: [
-      "/client/components/portfolio/project-images/project1-img1.png",
-      "/client/components/portfolio/project-images/project1-img2.png",
-      "/client/components/portfolio/project-images/project1-img3.png",
-      "/client/components/portfolio/project-images/project1-img4.png",
+      project1img1,
+      project1img2,
+      project1img3,
+      project1img4,
     ],
     status: "Completed",
   },
@@ -70,8 +81,8 @@ const projects: Project[] = [
     technologies: ["React", "Spring Boot", "MySQL", "WebRTC", "OAuth 2.0"],
     githubUrl: "https://github.com/manamendraJN/SkillSphere",
     images: [
-      "/client/components/portfolio/project-images/project2-img1.png",
-      "/client/components/portfolio/project-images/project2-img2.png",
+      project2img1,
+      project2img2,
     ],
     status: "Completed",
   },
@@ -85,9 +96,9 @@ const projects: Project[] = [
     technologies: ["Java", "Spring Boot", "PostgreSQL", "Angular", "Docker"],
     githubUrl: "https://github.com/Shiranakther/Warehouse_Management_Syatem",
     images: [
-      "/client/components/portfolio/project-images/project3-img1.png",
-      "/client/components/portfolio/project-images/project3-img2.png",
-      "/client/components/portfolio/project-images/project3-img3.png",
+      project3img1,
+      project3img2,
+      project3img3,
     ],
     status: "Completed",
   },
@@ -101,8 +112,8 @@ const projects: Project[] = [
     technologies: ["Kotlin", "SQLite", "Android SDK", "Material Design"],
     githubUrl: "https://github.com/manamendraJN/Notes_App_with_SQLite",
     images: [
-      "/client/components/portfolio/project-images/project4-img1.jpg",
-      "/client/components/portfolio/project-images/project4-img2.jpg",
+      project4img1,
+      project4img2,
     ],
     status: "Completed",
   },
