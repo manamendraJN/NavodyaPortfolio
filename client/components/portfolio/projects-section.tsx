@@ -114,7 +114,7 @@ const projects: Project[] = [
   fullDescription:
     "A comprehensive warehouse management system built with MongoDB, Express, React, and Node.js for a client, streamlining inventory, employee, and shipping operations. As a key contributor, I developed a secure login system, advanced staff management module, and intelligent shift scheduling algorithm, optimizing workforce efficiency. The platform supports stock addition, monitoring, low inventory alerts, purchase order management, shipping, wastage, and supplier management, with a responsive UI for seamless navigation. Deployed for a client’s team, it reduced operational delays by 20% and enhanced inventory accuracy, earning praise for its intuitive design.",
   technologies: ["MongoDB", "Express", "React", "Node.js"],
-  githubUrl: "https://github.com/Shiran8kther/Warehouse_Management_Syatem",
+  githubUrl: "https://github.com/Shiranakther/Warehouse_Management_Syatem",
   images: [
     project3img1,
     project3img2,
@@ -156,8 +156,8 @@ const projects: Project[] = [
       "Lucide React",
       "React SVG"
     ],
-    githubUrl: "https://manamendrajn.github.io/NavodyaPortfolio/",
-    liveUrl: "https://manamendraJN.github.io/portfolio",
+    githubUrl: "https://github.com/manamendraJN/NavodyaPortfolio",
+    liveUrl: "https://manamendrajn.github.io/NavodyaPortfolio/",
     images: [
       project6img1,
     ],
