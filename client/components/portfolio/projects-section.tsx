@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { ExternalLink, Github, ChevronLeft, ChevronRight, X, Expand, Minimize } from "lucide-react";
+import VanillaTilt from "vanilla-tilt";
 import project1img1 from "@/components/portfolio/project-images/project1-img1.png";
 import project1img2 from "@/components/portfolio/project-images/project1-img2.png";
 import project1img3 from "@/components/portfolio/project-images/project1-img3.png";
@@ -22,20 +23,34 @@ const containerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.2,
+      delayChildren: 0.4,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 100, rotateX: -20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+      type: "spring",
+      stiffness: 100,
+    },
+  },
 };
 
 const childVariants = {
-  hidden: { opacity: 0, y: 10 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
 };
 
 interface Project {
@@ -170,6 +185,22 @@ export function ProjectsSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isSliderExpanded, setIsSliderExpanded] = useState(false);
 
+    useEffect(() => {
+      const cards = document.querySelectorAll(".tilt-card");
+      cards.forEach((card) => {
+        VanillaTilt.init(card as HTMLElement, {
+          max: 15,
+          speed: 400,
+          glare: true,
+          "max-glare": 0.3,
+          perspective: 1000,
+        });
+      });
+      return () => {
+        cards.forEach((card) => (card as any).vanillaTilt.destroy());
+      };
+    }, []);
+
   const handlePrevImage = () => {
     setCurrentImageIndex((prev) =>
       prev === 0 ? (selectedProject?.images.length || 1) - 1 : prev - 1
@@ -215,87 +246,142 @@ export function ProjectsSection() {
             Showcasing innovative solutions built with modern technologies
           </p>
         </motion.div>
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10"
-        >
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={cardVariants}
-              whileHover={{ scale: 1.03 }}
-              className="bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300 cursor-pointer"
-              onClick={() => {
-                setSelectedProject(project);
-                setCurrentImageIndex(0);
-                setIsSliderExpanded(false);
-              }}
-            >
-              <motion.div variants={childVariants} className="mb-4">
-                <img
-                  src={project.images[0] || "https://via.placeholder.com/600x400?text=No+Image"}
-                  alt={`${project.title} preview`}
-                  className="w-full h-40 sm:h-48 object-cover rounded-lg"
-                  loading="lazy"
-                />
-                <div className="flex justify-between items-center mt-2">
-                  <span
-                    className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium tracking-wide uppercase ${
-                      project.status === "Ongoing"
-                        ? "bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400"
-                        : "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400"
-                    }`}
-                  >
-                    {project.status}
-                  </span>
-                </div>
-              </motion.div>
+<motion.div
+  variants={containerVariants}
+  initial="hidden"
+  whileInView="show"
+  viewport={{ once: true, amount: 0.2 }}
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12"
+>
+  {projects.map((project) => (
+<motion.div
+  key={project.id}
+  variants={cardVariants}
+  className="
+    tilt-card 
+    relative 
+    bg-white/70 dark:bg-gray-800/80 
+    backdrop-blur-xl 
+    p-6 
+    rounded-2xl 
+    border border-teal-400/40 dark:border-cyan-400/30 
+    group 
+    cursor-pointer 
+    overflow-hidden 
+    shadow-lg dark:shadow-cyan-800/40 
+    hover:shadow-2xl 
+    transition-all duration-500 ease-in-out
+  "
+  onClick={() => {
+    setSelectedProject(project);
+    setCurrentImageIndex(0);
+    setIsSliderExpanded(false);
+  }}
+>
 
-              <motion.h3
-                variants={childVariants}
-                className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2 line-clamp-1"
-              >
-                {project.title}
-              </motion.h3>
+      {/* Background gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.3),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
+      {/* Image container */}
+      <motion.div variants={childVariants} className="mb-6">
+        <div className="relative overflow-hidden rounded-xl border border-teal-500/20">
+          <img
+            src={project.images[0] || "https://via.placeholder.com/600x400?text=No+Image"}
+            alt={`${project.title} preview`}
+            className="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/60 dark:from-gray-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        </div>
+        <div className="flex justify-between items-center mt-4">
+          <motion.span
+            className={`px-4 py-2 rounded-full text-sm font-semibold tracking-wide uppercase ${
+              project.status === "Ongoing"
+                ? "bg-amber-500/20 text-amber-600 dark:text-amber-400"
+                : "bg-teal-500/20 text-teal-600 dark:text-teal-400"
+            }`}
+            whileHover={{ scale: 1.1 }}
+          >
+            {project.status}
+          </motion.span>
+        </div>
+      </motion.div>
 
-              <motion.p
-                variants={childVariants}
-                className="text-sm sm:text-base text-gray-600 dark:text-slate-400 mb-4 line-clamp-3 leading-relaxed"
-              >
-                {project.description}
-              </motion.p>
+      <motion.h3
+        variants={childVariants}
+        className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-1"
+      >
+        {project.title}
+      </motion.h3>
 
-              <motion.div variants={childVariants} className="flex flex-wrap gap-2 sm:gap-3 mb-4">
-                {project.technologies.slice(0, 3).map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-gray-200 text-gray-700 dark:bg-slate-700 dark:text-slate-300"
-                  >
-                    {tech}
-                  </span>
-                ))}
-                {project.technologies.length > 3 && (
-                  <span className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-gray-300 text-gray-600 dark:bg-slate-600 dark:text-slate-400">
-                    +{project.technologies.length - 3}
-                  </span>
-                )}
-              </motion.div>
+      <motion.p
+        variants={childVariants}
+        className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6 line-clamp-3 leading-relaxed"
+      >
+        {project.description}
+      </motion.p>
 
-              <motion.div variants={childVariants}>
-                <Button
-                  variant="outline"
-                  className="w-full px-4 sm:px-5 py-2 bg-gradient-to-r from-teal-700 to-cyan-600 text-white font-medium rounded-lg hover:from-teal-600 hover:to-cyan-700 dark:hover:from-teal-400 dark:hover:to-cyan-500 shadow-md min-h-[44px]"
-                  style={{ touchAction: "manipulation" }}
-                >
-                  View Details
-                </Button>
-              </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
+      <motion.div variants={childVariants} className="flex flex-wrap gap-3 mb-6">
+        {project.technologies.slice(0, 3).map((tech) => (
+          <motion.span
+            key={tech}
+            className="px-4 py-2 rounded-full text-sm bg-teal-500/20 text-teal-600 dark:text-teal-300 font-medium"
+            whileHover={{ scale: 1.1, backgroundColor: "rgba(20,184,166,0.3)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {tech}
+          </motion.span>
+        ))}
+        {project.technologies.length > 3 && (
+          <motion.span
+            className="px-4 py-2 rounded-full text-sm bg-gray-300/20 dark:bg-gray-700/20 text-gray-700 dark:text-gray-300 font-medium"
+            whileHover={{ scale: 1.1, backgroundColor: "rgba(20,184,166,0.3)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            +{project.technologies.length - 3}
+          </motion.span>
+        )}
+      </motion.div>
+
+      <motion.div variants={childVariants}>
+<Button
+  variant="outline"
+  className="
+    w-full 
+    px-4 
+    py-2.5 
+    text-sm 
+    bg-gradient-to-r 
+    from-teal-600 to-cyan-500 
+    dark:from-teal-500 dark:to-cyan-400 
+    text-white 
+    font-medium 
+    rounded-lg 
+    border border-transparent 
+    hover:from-teal-500 hover:to-cyan-400 
+    dark:hover:from-teal-400 dark:hover:to-cyan-300 
+    shadow-md 
+    hover:shadow-lg 
+    transition-all 
+    duration-300 
+    min-h-[44px] 
+    focus:outline-none 
+    focus:ring-2 
+    focus:ring-teal-400/60 
+    dark:focus:ring-cyan-400/60
+  "
+  style={{ touchAction: "manipulation" }}
+>
+  Explore Project
+</Button>
+
+
+      </motion.div>
+    </motion.div>
+  ))}
+</motion.div>
+
 
         {/* Project Modal */}
         {selectedProject && (
