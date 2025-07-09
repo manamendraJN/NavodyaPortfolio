@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { Stars, OrbitControls } from "@react-three/drei";
 import { useRef, useEffect, useState } from "react";
 import dpImage from "@/components/portfolio/dp/Untitled-Pica.png";
-import CV from "@/components/CV/Navodya_Manamendra_CV.pdf";
+import CV from "@/components/CV/Navodya_Manamendra_Resume.pdf";
 
 export function HeroSection() {
   const scrollToSection = (id: string) => {
