@@ -262,45 +262,37 @@ export function ProjectsSection() {
             Showcasing innovative solutions built with modern technologies
           </p>
         </motion.div>
-<motion.div
-  variants={containerVariants}
-  initial="hidden"
-  whileInView="show"
-  viewport={{ once: true, amount: 0.2 }}
-  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12"
->
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
   {projects.map((project) => (
-<motion.div
-  key={project.id}
-  variants={cardVariants}
-  className="
-    tilt-card 
-    relative 
-    bg-white/70 dark:bg-gray-800/80 
-    backdrop-blur-xl 
-    p-6 
-    rounded-2xl 
-    border border-teal-400/40 dark:border-cyan-400/30 
-    group 
-    cursor-pointer 
-    overflow-hidden 
-    shadow-lg dark:shadow-cyan-800/40 
-    hover:shadow-2xl 
-    transition-all duration-500 ease-in-out
-  "
-  onClick={() => {
-    setSelectedProject(project);
-    setCurrentImageIndex(0);
-    setIsSliderExpanded(false);
-  }}
->
-
-      {/* Background gradient overlays */}
+    <div
+      key={project.id}
+      className="
+        tilt-card 
+        relative 
+        bg-white/70 dark:bg-gray-800/80 
+        backdrop-blur-xl 
+        p-6 
+        rounded-2xl 
+        border border-teal-400/40 dark:border-cyan-400/30 
+        group 
+        cursor-pointer 
+        overflow-hidden 
+        shadow-lg dark:shadow-cyan-800/40 
+        hover:shadow-2xl 
+        transition-all duration-500 ease-in-out
+      "
+      onClick={() => {
+        setSelectedProject(project);
+        setCurrentImageIndex(0);
+        setIsSliderExpanded(false);
+      }}
+    >
+      {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.3),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
-      {/* Image container */}
-      <motion.div variants={childVariants} className="mb-6">
+
+      {/* Image container (motion only from sm: and up) */}
+      <div className="mb-6 sm:motion-safe:animate-none">
         <div className="relative overflow-hidden rounded-xl border border-teal-500/20">
           <img
             src={project.images[0] || "https://via.placeholder.com/600x400?text=No+Image"}
@@ -311,92 +303,82 @@ export function ProjectsSection() {
           <div className="absolute inset-0 bg-gradient-to-t from-white/60 dark:from-gray-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
         <div className="flex justify-between items-center mt-4">
-          <motion.span
+          <span
             className={`px-4 py-2 rounded-full text-sm font-semibold tracking-wide uppercase ${
               project.status === "Ongoing"
                 ? "bg-amber-500/20 text-amber-600 dark:text-amber-400"
                 : "bg-teal-500/20 text-teal-600 dark:text-teal-400"
             }`}
-            whileHover={{ scale: 1.1 }}
           >
             {project.status}
-          </motion.span>
+          </span>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.h3
-        variants={childVariants}
-        className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-1"
-      >
+      {/* Title (animated only from sm:) */}
+      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-1">
         {project.title}
-      </motion.h3>
+      </h3>
 
-      <motion.p
-        variants={childVariants}
-        className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6 line-clamp-3 leading-relaxed"
-      >
+      {/* Description */}
+      <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6 line-clamp-3 leading-relaxed">
         {project.description}
-      </motion.p>
+      </p>
 
-      <motion.div variants={childVariants} className="flex flex-wrap gap-3 mb-6">
+      {/* Tech tags */}
+      <div className="flex flex-wrap gap-3 mb-6">
         {project.technologies.slice(0, 3).map((tech) => (
-          <motion.span
+          <span
             key={tech}
             className="px-4 py-2 rounded-full text-sm bg-teal-500/20 text-teal-600 dark:text-teal-300 font-medium"
-            whileHover={{ scale: 1.1, backgroundColor: "rgba(20,184,166,0.3)" }}
-            whileTap={{ scale: 0.95 }}
           >
             {tech}
-          </motion.span>
+          </span>
         ))}
         {project.technologies.length > 3 && (
-          <motion.span
-            className="px-4 py-2 rounded-full text-sm bg-gray-300/20 dark:bg-gray-700/20 text-gray-700 dark:text-gray-300 font-medium"
-            whileHover={{ scale: 1.1, backgroundColor: "rgba(20,184,166,0.3)" }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <span className="px-4 py-2 rounded-full text-sm bg-gray-300/20 dark:bg-gray-700/20 text-gray-700 dark:text-gray-300 font-medium">
             +{project.technologies.length - 3}
-          </motion.span>
+          </span>
         )}
-      </motion.div>
+      </div>
 
-      <motion.div variants={childVariants}>
-<Button
-  variant="outline"
-  className="
-    w-full 
-    px-4 
-    py-2.5 
-    text-sm 
-    bg-gradient-to-r 
-    from-teal-600 to-cyan-500 
-    dark:from-teal-500 dark:to-cyan-400 
-    text-white 
-    font-medium 
-    rounded-lg 
-    border border-transparent 
-    hover:from-teal-500 hover:to-cyan-400 
-    dark:hover:from-teal-400 dark:hover:to-cyan-300 
-    shadow-md 
-    hover:shadow-lg 
-    transition-all 
-    duration-300 
-    min-h-[44px] 
-    focus:outline-none 
-    focus:ring-2 
-    focus:ring-teal-400/60 
-    dark:focus:ring-cyan-400/60
-  "
-  style={{ touchAction: "manipulation" }}
->
-  Explore Project
-</Button>
-
-
-      </motion.div>
-    </motion.div>
+      {/* Button */}
+      <div>
+        <Button
+          variant="outline"
+          className="
+            w-full 
+            px-4 
+            py-2.5 
+            text-sm 
+            bg-gradient-to-r 
+            from-teal-600 to-cyan-500 
+            dark:from-teal-500 dark:to-cyan-400 
+            text-white 
+            font-medium 
+            rounded-lg 
+            border border-transparent 
+            hover:from-teal-500 hover:to-cyan-400 
+            dark:hover:from-teal-400 dark:hover:to-cyan-300 
+            shadow-md 
+            hover:shadow-lg 
+            transition-all 
+            duration-300 
+            min-h-[44px] 
+            focus:outline-none 
+            focus:ring-2 
+            focus:ring-teal-400/60 
+            dark:focus:ring-cyan-400/60
+          "
+          style={{ touchAction: "manipulation" }}
+        >
+          Explore Project
+        </Button>
+      </div>
+    </div>
   ))}
-</motion.div>
+</div>
+
 
 
         {/* Project Modal */}
