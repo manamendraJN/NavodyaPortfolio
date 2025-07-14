@@ -267,19 +267,16 @@ export function ProjectsSection() {
     <div
       key={project.id}
       className="
-        tilt-card 
         relative 
-        bg-white/70 dark:bg-gray-800/80 
-        backdrop-blur-xl 
-        p-6 
-        rounded-2xl 
-        border border-teal-400/40 dark:border-cyan-400/30 
+        bg-white dark:bg-gray-800 
+        p-4 sm:p-6 
+        rounded-xl sm:rounded-2xl 
+        border border-teal-400/30 dark:border-cyan-400/20 
         group 
         cursor-pointer 
         overflow-hidden 
-        shadow-lg dark:shadow-cyan-800/40 
-        hover:shadow-2xl 
-        transition-all duration-500 ease-in-out
+        shadow-md sm:shadow-lg dark:shadow-cyan-800/20 sm:dark:shadow-cyan-800/40
+        transition-all duration-300 sm:duration-500 ease-in-out
       "
       onClick={() => {
         setSelectedProject(project);
@@ -287,24 +284,27 @@ export function ProjectsSection() {
         setIsSliderExpanded(false);
       }}
     >
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.3),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* Gradient overlays - Only for md and above */}
+      <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="hidden md:block absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.3),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      {/* Image container (motion only from sm: and up) */}
-      <div className="mb-6 sm:motion-safe:animate-none">
-        <div className="relative overflow-hidden rounded-xl border border-teal-500/20">
+      {/* Image container */}
+      <div className="mb-4 sm:mb-6">
+        <div className="relative overflow-hidden rounded-lg sm:rounded-xl border border-teal-500/10">
           <img
             src={project.images[0] || "https://via.placeholder.com/600x400?text=No+Image"}
             alt={`${project.title} preview`}
-            className="w-full h-56 sm:h-64 object-cover transform group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500"
+            className="w-full h-48 sm:h-64 object-cover transition-transform sm:group-hover:scale-110 sm:group-hover:rotate-1 duration-300 sm:duration-500"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-white/60 dark:from-gray-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {/* Gradient overlay only on desktop */}
+          <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-white/50 dark:from-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
-        <div className="flex justify-between items-center mt-4">
+
+        {/* Status badge */}
+        <div className="flex justify-between items-center mt-3 sm:mt-4">
           <span
-            className={`px-4 py-2 rounded-full text-sm font-semibold tracking-wide uppercase ${
+            className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-wide ${
               project.status === "Ongoing"
                 ? "bg-amber-500/20 text-amber-600 dark:text-amber-400"
                 : "bg-teal-500/20 text-teal-600 dark:text-teal-400"
@@ -315,28 +315,28 @@ export function ProjectsSection() {
         </div>
       </div>
 
-      {/* Title (animated only from sm:) */}
-      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-1">
+      {/* Title */}
+      <h3 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 line-clamp-1">
         {project.title}
       </h3>
 
       {/* Description */}
-      <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6 line-clamp-3 leading-relaxed">
+      <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 line-clamp-3 leading-relaxed">
         {project.description}
       </p>
 
-      {/* Tech tags */}
-      <div className="flex flex-wrap gap-3 mb-6">
+      {/* Technologies */}
+      <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
         {project.technologies.slice(0, 3).map((tech) => (
           <span
             key={tech}
-            className="px-4 py-2 rounded-full text-sm bg-teal-500/20 text-teal-600 dark:text-teal-300 font-medium"
+            className="px-3 py-1.5 rounded-full text-xs sm:text-sm bg-teal-500/20 text-teal-600 dark:text-teal-300 font-medium"
           >
             {tech}
           </span>
         ))}
         {project.technologies.length > 3 && (
-          <span className="px-4 py-2 rounded-full text-sm bg-gray-300/20 dark:bg-gray-700/20 text-gray-700 dark:text-gray-300 font-medium">
+          <span className="px-3 py-1.5 rounded-full text-xs sm:text-sm bg-gray-300/20 dark:bg-gray-700/20 text-gray-700 dark:text-gray-300 font-medium">
             +{project.technologies.length - 3}
           </span>
         )}
@@ -360,8 +360,8 @@ export function ProjectsSection() {
             border border-transparent 
             hover:from-teal-500 hover:to-cyan-400 
             dark:hover:from-teal-400 dark:hover:to-cyan-300 
-            shadow-md 
-            hover:shadow-lg 
+            shadow 
+            hover:shadow-md 
             transition-all 
             duration-300 
             min-h-[44px] 
