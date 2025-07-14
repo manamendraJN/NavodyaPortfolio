@@ -18,6 +18,7 @@ import project4img2 from "@/components/portfolio/project-images/project4-img2.jp
 import project6img1 from "@/components/portfolio/project-images/project6-img1.png";
 import project3img4 from "@/components/portfolio/project-images/project3-img4.png";
 import project3img5 from "@/components/portfolio/project-images/project3-img5.png";
+import project7img1 from "@/components/portfolio/project-images/project7-img1.png";
 
 const containerVariants = {
   hidden: {},
@@ -66,8 +67,23 @@ interface Project {
 }
 
 const projects: Project[] = [
-  {
+    {
     id: "1",
+    title: "HandGestureControl",
+    description:
+      "A Python-based system to control the mouse using right-hand gestures via webcam, with full-screen movement and click actions.",
+    fullDescription:
+      "An innovative computer vision project that enables mouse control through right-hand gestures captured by a webcam. Features include smooth full-screen cursor movement with adjustable speed, single-click (2 fingers), double-click (3 fingers), and a 5-second calibration phase for precision. A compact always-on-top preview window displays hand tracking in real-time. Built with OpenCV, MediaPipe, PyAutoGUI, and Windows APIs for seamless interaction.",
+    technologies: ["Python", "OpenCV", "MediaPipe", "PyAutoGUI", "Win32 API"],
+    githubUrl: "https://github.com/manamendraJN/HandGestureControl",
+    images: [
+      project7img1
+      ,
+    ],
+    status: "Ongoing",
+  },
+  {
+    id: "2",
     title: "Remote Work Collaboration System",
     description:
       "A powerful platform for remote teams to manage projects, tasks, and files with Smart Workload Balancer.",
@@ -91,7 +107,7 @@ const projects: Project[] = [
     status: "Completed",
   },
   {
-    id: "2",
+    id: "3",
     title: "SkillSphere",
     description:
       "Interactive skill-sharing platform with structured learning plans, community-driven Q&A forum, and mentorship support.",
@@ -107,7 +123,7 @@ const projects: Project[] = [
     status: "Completed",
   },
 {
-  id: "3",
+  id: "4",
   title: "Warehouse Management System",
   description:
     "MERN-stack platform for warehouse operations, featuring secure login, staff management, and intelligent shift scheduling.",
@@ -125,7 +141,7 @@ const projects: Project[] = [
   status: "Completed",
 },
   {
-    id: "4",
+    id: "5",
     title: "Notes App with SQLite",
     description:
       "Minimalist mobile application for creating and managing notes with offline functionality.",
@@ -140,7 +156,7 @@ const projects: Project[] = [
     status: "Completed",
   },
     {
-    id: "6",
+    id: "7",
     title: "Personal Portfolio Website",
     description:
       "Portfolio showcasing my projects, skills, and achievements with a focus on interactivity & accessibility.",
@@ -164,7 +180,7 @@ const projects: Project[] = [
     status: "Completed",
   },
   {
-    id: "5",
+    id: "6",
     title: "MERN-Estate",
     description:
       "Real estate application with advanced search functionality and secure authentication system.",
