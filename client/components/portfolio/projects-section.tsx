@@ -80,7 +80,7 @@ const projects: Project[] = [
       project7img1
       ,
     ],
-    status: "Ongoing",
+    status: "Completed",
   },
   {
     id: "2",
