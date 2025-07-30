@@ -19,6 +19,11 @@ import project6img1 from "@/components/portfolio/project-images/project6-img1.pn
 import project3img4 from "@/components/portfolio/project-images/project3-img4.png";
 import project3img5 from "@/components/portfolio/project-images/project3-img5.png";
 import project7img1 from "@/components/portfolio/project-images/project7-img1.png";
+import project8img1 from "@/components/portfolio/project-images/project8-img1.png";
+import project8img2 from "@/components/portfolio/project-images/project8-img2.png";
+import project8img3 from "@/components/portfolio/project-images/project8-img3.png";
+import project8img4 from "@/components/portfolio/project-images/project8-img4.png";
+import project8img5 from "@/components/portfolio/project-images/project8-img5.png";
 
 const containerVariants = {
   hidden: {},
@@ -69,6 +74,25 @@ interface Project {
 const projects: Project[] = [
     {
     id: "1",
+    title: "Issue Tracker Application",
+    description:
+      "A full-stack web app for managing issues with user authentication and CRUD functionality.",
+    fullDescription:
+      "A comprehensive issue tracking web application designed to streamline task management. It features user authentication with JWT, CRUD operations (Create, Read, Update, Delete) for issues, a reusable navigation bar, and toast notifications for real-time feedback. The frontend is built with React, Vite, and Tailwind CSS, while the backend uses Node.js, Express, and MongoDB. Deployed on Netlify for the frontend and Render for the backend, ensuring a robust and accessible solution.",
+    technologies: ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "MongoDB", "JWT", "Netlify", "Render"],
+    githubUrl: "https://github.com/manamendraJN/issue-tracker",
+    liveUrl: "https://issuesync.netlify.app/",
+    images: [
+      project8img1,
+      project8img2,
+      project8img3,
+      project8img4,
+      project8img5
+    ],
+    status: "Completed",
+  },
+    {
+    id: "2",
     title: "HandGestureControl",
     description:
       "A Python-based system to control the mouse using right-hand gestures via webcam, with full-screen movement and click actions.",
@@ -83,7 +107,7 @@ const projects: Project[] = [
     status: "Completed",
   },
   {
-    id: "2",
+    id: "3",
     title: "Remote Work Collaboration System",
     description:
       "A powerful platform for remote teams to manage projects, tasks, and files with Smart Workload Balancer.",
@@ -107,7 +131,7 @@ const projects: Project[] = [
     status: "Completed",
   },
   {
-    id: "3",
+    id: "4",
     title: "SkillSphere",
     description:
       "Interactive skill-sharing platform with structured learning plans, community-driven Q&A forum, and mentorship support.",
@@ -123,7 +147,7 @@ const projects: Project[] = [
     status: "Completed",
   },
 {
-  id: "4",
+  id: "5",
   title: "Warehouse Management System",
   description:
     "MERN-stack platform for warehouse operations, featuring secure login, staff management, and intelligent shift scheduling.",
@@ -141,7 +165,7 @@ const projects: Project[] = [
   status: "Completed",
 },
   {
-    id: "5",
+    id: "6",
     title: "Notes App with SQLite",
     description:
       "Minimalist mobile application for creating and managing notes with offline functionality.",
@@ -156,7 +180,7 @@ const projects: Project[] = [
     status: "Completed",
   },
     {
-    id: "7",
+    id: "8",
     title: "Personal Portfolio Website",
     description:
       "Portfolio showcasing my projects, skills, and achievements with a focus on interactivity & accessibility.",
@@ -180,7 +204,7 @@ const projects: Project[] = [
     status: "Completed",
   },
   {
-    id: "6",
+    id: "7",
     title: "MERN-Estate",
     description:
       "Real estate application with advanced search functionality and secure authentication system.",
